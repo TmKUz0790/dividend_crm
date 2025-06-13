@@ -19,9 +19,7 @@ def api_get_all_jobs(request):
         for job in jobs:
             jobs_data.append({
                 'id': job.id,
-                'title': job.title,
                 'client_email': job.client_email,
-                'over_all_income': job.over_all_income,
                 'created_at': job.created_at.isoformat() if hasattr(job, 'created_at') and job.created_at else None,
                 'full_name': job.full_name,
                 'phone_number': job.phone_number,
@@ -48,9 +46,7 @@ def api_get_all_jobs(request):
         except ValueError:
             return JsonResponse({'error': 'over_all_income must be a number'}, status=400)
         job = CrmJob.objects.create(
-            title=data['title'],
             client_email=data['client_email'],
-            over_all_income=over_all_income,
             full_name=data.get('full_name', ''),
             phone_number=data.get('phone_number', ''),
             position=data.get('position', ''),
@@ -62,9 +58,7 @@ def api_get_all_jobs(request):
         )
         job_data = {
             'id': job.id,
-            'title': job.title,
             'client_email': job.client_email,
-            'over_all_income': job.over_all_income,
             'created_at': job.created_at.isoformat() if hasattr(job, 'created_at') and job.created_at else None,
             'full_name': job.full_name,
             'phone_number': job.phone_number,
@@ -84,9 +78,7 @@ def api_get_job_detail(request, job_id):
     job = get_object_or_404(CrmJob, id=job_id)
     job_data = {
         'id': job.id,
-        'title': job.title,
         'client_email': job.client_email,
-        'over_all_income': job.over_all_income,
         'created_at': job.created_at.isoformat() if hasattr(job, 'created_at') and job.created_at else None,
         'full_name': job.full_name,
         'phone_number': job.phone_number,
@@ -108,20 +100,15 @@ def api_update_job(request, job_id):
         data = json.loads(request.body)
     except json.JSONDecodeError:
         return JsonResponse({'error': 'Invalid JSON'}, status=400)
-    for field in ['title', 'client_email', 'full_name', 'phone_number', 'position', 'client_company_name', 'client_company_phone', 'client_company_address', 'client_website']:
+    for field in [ 'client_email', 'full_name', 'phone_number', 'position', 'client_company_name', 'client_company_phone', 'client_company_address', 'client_website']:
         if field in data:
             setattr(job, field, data[field])
-    if 'over_all_income' in data:
-        try:
-            job.over_all_income = float(data['over_all_income'])
-        except ValueError:
-            return JsonResponse({'error': 'over_all_income must be a number'}, status=400)
+
+
     job.save()
     job_data = {
         'id': job.id,
-        'title': job.title,
         'client_email': job.client_email,
-        'over_all_income': job.over_all_income,
         'created_at': job.created_at.isoformat() if hasattr(job, 'created_at') and job.created_at else None,
         'full_name': job.full_name,
         'phone_number': job.phone_number,

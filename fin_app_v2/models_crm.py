@@ -2,9 +2,7 @@ from django.db import models
 
 class CrmJob(models.Model):
     # Основные поля
-    title = models.CharField(max_length=255)
     client_email = models.EmailField()
-    over_all_income = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
     # Новые поля по ТЗ
