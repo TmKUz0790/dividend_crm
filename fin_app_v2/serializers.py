@@ -152,7 +152,7 @@ class CrmJobSerializer(serializers.ModelSerializer):
     class Meta:
         model = CrmJob
         fields = [
-            'id', 'title', 'client_email', 'over_all_income', 'created_at',
+            'id', 'client_email', 'created_at',
             'full_name', 'phone_number', 'position',
             'client_company_name', 'client_company_phone',
             'client_company_address', 'client_website',
