@@ -170,6 +170,235 @@ def api_get_task_detail(request, job_id, task_id):
             status_code=500
         )
 
+#
+# @csrf_exempt
+# @require_http_methods(["POST"])
+# def api_create_task(request, job_id):
+#     """
+#     POST /api/jobs/{job_id}/tasks/
+#     Create a new task for a specific job
+#
+#     Required fields:
+#     - title: string
+#     - description: string
+#     - hours: integer
+#     - money_for_task: integer
+#
+#     Optional fields:
+#     - task_type: string (SIMPLE, PATPIS, MONTHLY) - default: SIMPLE
+#     - deadline: string (YYYY-MM-DD format)
+#     - assigned_user_ids: array of user IDs
+#     - progress: integer (0-100) - default: 0
+#     """
+#     try:
+#         # Verify job exists
+#         job = get_object_or_404(Job, id=job_id)
+#
+#         # Parse JSON data
+#         try:
+#             data = json.loads(request.body)
+#         except json.JSONDecodeError:
+#             return api_response(
+#                 error="Invalid JSON",
+#                 message="Request body must be valid JSON",
+#                 status_code=400
+#             )
+#
+#         # Validate required fields
+#         required_fields = ['title', 'description', 'hours', 'money_for_task']
+#         missing_fields = [field for field in required_fields if field not in data or not data[field]]
+#
+#         if missing_fields:
+#             return api_response(
+#                 error="Missing required fields",
+#                 message=f"Missing required fields: {', '.join(missing_fields)}",
+#                 status_code=400
+#             )
+#
+#         # Validate data types
+#         try:
+#             hours = int(data['hours'])
+#             money_for_task = int(data['money_for_task'])
+#             progress = int(data.get('progress', 0))
+#
+#             if hours <= 0:
+#                 return api_response(
+#                     error="Invalid hours",
+#                     message="Hours must be greater than 0",
+#                     status_code=400
+#                 )
+#
+#             if money_for_task < 0:
+#                 return api_response(
+#                     error="Invalid money_for_task",
+#                     message="Money for task must be 0 or greater",
+#                     status_code=400
+#                 )
+#
+#             if not (0 <= progress <= 100):
+#                 return api_response(
+#                     error="Invalid progress",
+#                     message="Progress must be between 0 and 100",
+#                     status_code=400
+#                 )
+#
+#         except ValueError:
+#             return api_response(
+#                 error="Invalid data types",
+#                 message="Hours, money_for_task, and progress must be integers",
+#                 status_code=400
+#             )
+#
+#         # Validate task_type
+#         task_type = data.get('task_type', 'SIMPLE')
+#         valid_task_types = ['SIMPLE', 'PATPIS', 'MONTHLY']
+#         if task_type not in valid_task_types:
+#             return api_response(
+#                 error="Invalid task_type",
+#                 message=f"Task type must be one of: {', '.join(valid_task_types)}",
+#                 status_code=400
+#             )
+#
+#         # Parse deadline if provided
+#         deadline = None
+#         if data.get('deadline'):
+#             try:
+#                 deadline = parse_date(data['deadline'])
+#                 if not deadline:
+#                     raise ValueError
+#             except ValueError:
+#                 return api_response(
+#                     error="Invalid deadline format",
+#                     message="Deadline must be in YYYY-MM-DD format",
+#                     status_code=400
+#                 )
+#
+#         # Validate assigned users if provided
+#         assigned_users = []
+#         if data.get('assigned_user_ids'):
+#             user_ids = data['assigned_user_ids']
+#             if not isinstance(user_ids, list):
+#                 return api_response(
+#                     error="Invalid assigned_user_ids",
+#                     message="assigned_user_ids must be an array",
+#                     status_code=400
+#                 )
+#
+#             assigned_users = User.objects.filter(id__in=user_ids)
+#             if len(assigned_users) != len(user_ids):
+#                 found_ids = [user.id for user in assigned_users]
+#                 missing_ids = [uid for uid in user_ids if uid not in found_ids]
+#                 return api_response(
+#                     error="Invalid user IDs",
+#                     message=f"User IDs not found: {missing_ids}",
+#                     status_code=400
+#                 )
+#
+#         # Create task with transaction
+#         with transaction.atomic():
+#             # Calculate total hours and task percentage
+#             existing_tasks = Task.objects.filter(job=job)
+#             total_existing_hours = existing_tasks.aggregate(Sum('hours'))['hours__sum'] or 0
+#             total_hours = total_existing_hours + hours
+#
+#             # Create the task
+#             task = Task.objects.create(
+#                 job=job,
+#                 title=data['title'],
+#                 description=data['description'],
+#                 hours=hours,
+#                 money_for_task=money_for_task,
+#                 progress=progress,
+#                 task_type=task_type,
+#                 deadline=deadline,
+#                 task_percentage=(hours / total_hours) * 100
+#             )
+#
+#             # Assign users
+#             if assigned_users:
+#                 task.assigned_users.set(assigned_users)
+#
+#             # Update percentages for all tasks in the job
+#             all_tasks = Task.objects.filter(job=job)
+#             for task_obj in all_tasks:
+#                 task_obj.task_percentage = (task_obj.hours / total_hours) * 100
+#                 task_obj.save(update_fields=['task_percentage'])
+#
+#         # Return created task data
+#         assigned_users_data = [
+#             {
+#                 'id': user.id,
+#                 'username': user.username,
+#                 'email': user.email
+#             }
+#             for user in task.assigned_users.all()
+#         ]
+#
+#         task_data = {
+#             'id': task.id,
+#             'title': task.title,
+#             'description': task.description,
+#             'hours': task.hours,
+#             'task_percentage': task.task_percentage,
+#             'progress': task.progress,
+#             'money_for_task': task.money_for_task,
+#             'paid': task.paid,
+#             'task_type': task.task_type,
+#             'confirmed': task.confirmed,
+#             'start_date': task.start_date.isoformat() if task.start_date else None,
+#             'deadline': task.deadline.isoformat() if task.deadline else None,
+#             'feedback': task.feedback,
+#             'assigned_users': assigned_users_data,
+#             'job_id': job.id
+#         }
+#
+#         return api_response(
+#             data=task_data,
+#             message=f"Task '{task.title}' created successfully",
+#             status_code=201
+#         )
+#
+#     except Job.DoesNotExist:
+#         return api_response(
+#             error="Job not found",
+#             message="The specified job does not exist",
+#             status_code=404
+#         )
+#     except Exception as e:
+#         return api_response(
+#             error=str(e),
+#             message="An error occurred while creating the task",
+#             status_code=500
+#         )
+#
+
+from django.http import JsonResponse, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
+from django.db import transaction
+from django.db.models import Sum
+from django.utils.dateparse import parse_date
+import json
+
+# Import your models - make sure these are correct
+from .models_crm import CrmJob  # or whatever your job model is called
+from .models import Task  # or whatever your task model is called
+
+
+def api_response(data=None, error=None, message=None, status_code=200):
+    """Helper function to standardize API responses"""
+    response_data = {}
+    if data is not None:
+        response_data['data'] = data
+    if error is not None:
+        response_data['error'] = error
+    if message is not None:
+        response_data['message'] = message
+
+    return JsonResponse(response_data, status=status_code)
+
 
 @csrf_exempt
 @require_http_methods(["POST"])
@@ -177,22 +406,10 @@ def api_create_task(request, job_id):
     """
     POST /api/jobs/{job_id}/tasks/
     Create a new task for a specific job
-
-    Required fields:
-    - title: string
-    - description: string
-    - hours: integer
-    - money_for_task: integer
-
-    Optional fields:
-    - task_type: string (SIMPLE, PATPIS, MONTHLY) - default: SIMPLE
-    - deadline: string (YYYY-MM-DD format)
-    - assigned_user_ids: array of user IDs
-    - progress: integer (0-100) - default: 0
     """
     try:
-        # Verify job exists
-        job = get_object_or_404(Job, id=job_id)
+        # Fix 1: Use correct model name (Job vs CrmJob)
+        job = get_object_or_404(CrmJob, id=job_id)  # Changed from Job to CrmJob
 
         # Parse JSON data
         try:
@@ -206,7 +423,14 @@ def api_create_task(request, job_id):
 
         # Validate required fields
         required_fields = ['title', 'description', 'hours', 'money_for_task']
-        missing_fields = [field for field in required_fields if field not in data or not data[field]]
+        missing_fields = []
+
+        # Fix 2: Better validation logic
+        for field in required_fields:
+            if field not in data:
+                missing_fields.append(field)
+            elif data[field] is None or data[field] == '':
+                missing_fields.append(field)
 
         if missing_fields:
             return api_response(
@@ -242,7 +466,7 @@ def api_create_task(request, job_id):
                     status_code=400
                 )
 
-        except ValueError:
+        except (ValueError, TypeError):
             return api_response(
                 error="Invalid data types",
                 message="Hours, money_for_task, and progress must be integers",
@@ -265,7 +489,7 @@ def api_create_task(request, job_id):
             try:
                 deadline = parse_date(data['deadline'])
                 if not deadline:
-                    raise ValueError
+                    raise ValueError("Invalid date format")
             except ValueError:
                 return api_response(
                     error="Invalid deadline format",
@@ -284,22 +508,41 @@ def api_create_task(request, job_id):
                     status_code=400
                 )
 
-            assigned_users = User.objects.filter(id__in=user_ids)
-            if len(assigned_users) != len(user_ids):
-                found_ids = [user.id for user in assigned_users]
-                missing_ids = [uid for uid in user_ids if uid not in found_ids]
-                return api_response(
-                    error="Invalid user IDs",
-                    message=f"User IDs not found: {missing_ids}",
-                    status_code=400
-                )
+            # Fix 3: Handle empty list and non-integer IDs
+            if user_ids:  # Only process if list is not empty
+                try:
+                    # Ensure all IDs are integers
+                    user_ids = [int(uid) for uid in user_ids]
+                except (ValueError, TypeError):
+                    return api_response(
+                        error="Invalid user IDs",
+                        message="All user IDs must be integers",
+                        status_code=400
+                    )
+
+                assigned_users = User.objects.filter(id__in=user_ids)
+                if len(assigned_users) != len(user_ids):
+                    found_ids = [user.id for user in assigned_users]
+                    missing_ids = [uid for uid in user_ids if uid not in found_ids]
+                    return api_response(
+                        error="Invalid user IDs",
+                        message=f"User IDs not found: {missing_ids}",
+                        status_code=400
+                    )
 
         # Create task with transaction
         with transaction.atomic():
-            # Calculate total hours and task percentage
+            # Fix 4: Use correct foreign key relationship
+            # Make sure Task model has correct relationship to CrmJob
             existing_tasks = Task.objects.filter(job=job)
             total_existing_hours = existing_tasks.aggregate(Sum('hours'))['hours__sum'] or 0
             total_hours = total_existing_hours + hours
+
+            # Fix 5: Handle division by zero
+            if total_hours == 0:
+                task_percentage = 0
+            else:
+                task_percentage = (hours / total_hours) * 100
 
             # Create the task
             task = Task.objects.create(
@@ -311,7 +554,7 @@ def api_create_task(request, job_id):
                 progress=progress,
                 task_type=task_type,
                 deadline=deadline,
-                task_percentage=(hours / total_hours) * 100
+                task_percentage=task_percentage
             )
 
             # Assign users
@@ -319,12 +562,16 @@ def api_create_task(request, job_id):
                 task.assigned_users.set(assigned_users)
 
             # Update percentages for all tasks in the job
-            all_tasks = Task.objects.filter(job=job)
-            for task_obj in all_tasks:
-                task_obj.task_percentage = (task_obj.hours / total_hours) * 100
-                task_obj.save(update_fields=['task_percentage'])
+            if total_hours > 0:  # Avoid division by zero
+                all_tasks = Task.objects.filter(job=job)
+                for task_obj in all_tasks:
+                    task_obj.task_percentage = (task_obj.hours / total_hours) * 100
+                    task_obj.save(update_fields=['task_percentage'])
 
         # Return created task data
+        # Fix 6: Use select_related to avoid N+1 queries
+        task = Task.objects.select_related('job').prefetch_related('assigned_users').get(id=task.id)
+
         assigned_users_data = [
             {
                 'id': user.id,
@@ -339,15 +586,15 @@ def api_create_task(request, job_id):
             'title': task.title,
             'description': task.description,
             'hours': task.hours,
-            'task_percentage': task.task_percentage,
+            'task_percentage': round(task.task_percentage, 2),  # Round to 2 decimal places
             'progress': task.progress,
             'money_for_task': task.money_for_task,
-            'paid': task.paid,
+            'paid': getattr(task, 'paid', False),  # Handle if field doesn't exist
             'task_type': task.task_type,
-            'confirmed': task.confirmed,
-            'start_date': task.start_date.isoformat() if task.start_date else None,
+            'confirmed': getattr(task, 'confirmed', False),  # Handle if field doesn't exist
+            'start_date': task.start_date.isoformat() if hasattr(task, 'start_date') and task.start_date else None,
             'deadline': task.deadline.isoformat() if task.deadline else None,
-            'feedback': task.feedback,
+            'feedback': getattr(task, 'feedback', ''),  # Handle if field doesn't exist
             'assigned_users': assigned_users_data,
             'job_id': job.id
         }
@@ -358,20 +605,23 @@ def api_create_task(request, job_id):
             status_code=201
         )
 
-    except Job.DoesNotExist:
+    except CrmJob.DoesNotExist:  # Fix 7: Use correct model name
         return api_response(
             error="Job not found",
             message="The specified job does not exist",
             status_code=404
         )
     except Exception as e:
+        # Fix 8: Better error logging
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error creating task: {str(e)}", exc_info=True)
+
         return api_response(
-            error=str(e),
+            error="Internal server error",
             message="An error occurred while creating the task",
             status_code=500
         )
-
-
 @csrf_exempt
 @require_http_methods(["PUT", "PATCH"])
 def api_update_task(request, job_id, task_id):
