@@ -15,8 +15,8 @@ class CrmJob(models.Model):
     client_website = models.CharField("Адрес веб-сайта", max_length=255, blank=True, default="")
     
     STATUS_CHOICES = [
-        ("АКБ", "Активен"),
-        ("ОКБ", "Неактивен"),
+        ("АКБ", "АКБ"),
+        ("ОКБ", "ОКБ"),
     ]
     status = models.CharField("Статус", max_length=8, choices=STATUS_CHOICES, default="active")
 

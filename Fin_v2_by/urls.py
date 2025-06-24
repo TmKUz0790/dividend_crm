@@ -22,4 +22,5 @@ urlpatterns = [
     path('',include('fin_app_v2.urls')),
     path('', include('fin_app_v2.api_urls')),
     path('', include('fin_app_v2.api_task_urls')),
+    path('', include('fin_app_v2.api_tmk_task_urls')),
 ]
