@@ -32,7 +32,7 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     'https://web-production-b124.up.railway.app',
-    'https://fixed-dividcrm.vercel.app',
+    'https://fixed-dividcrm-2.vercel.app',
 ]
 
 
