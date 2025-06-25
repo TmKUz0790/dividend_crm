@@ -401,8 +401,36 @@ def job_tasks_crud(request, pk):
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
 
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework import permissions
+from django.shortcuts import get_object_or_404
+from .models_crm import CrmTask
+from .serializers import CrmTaskSerializer  # если есть сериализатор
 
-
+@api_view(['GET'])
+@permission_classes([permissions.AllowAny])
+def all_crm_tasks(request):
+    tasks = CrmTask.objects.all().prefetch_related('crm_comments', 'crm_files')
+    data = []
+    for t in tasks:
+        data.append({
+            'id': t.id,
+            'job_id': t.job.id,
+            'title': t.title,
+            'description': t.description,
+            'date_description': getattr(t, 'date_description', None),  # на всякий случай
+            'task_type': t.task_type,
+            'assigned_to': t.assigned_to,
+            'subtasks': t.subtasks,
+            'comments': [
+                {'author': c.author, 'text': c.text, 'created_at': c.created_at}
+                for c in t.crm_comments.all()
+            ],
+            'files': [f.file.url for f in t.crm_files.all()],
+        })
+    return Response(data)
     
 # CRM API Views
 class CrmJobViewSet(viewsets.ModelViewSet):
