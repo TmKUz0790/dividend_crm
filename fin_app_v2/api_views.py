@@ -1,6 +1,7 @@
 # api_views.py - CREATE THIS AS A NEW FILE
 # This file doesn't exist in your project, so it's 100% safe to add
 
+from django.http import JsonResponse
 from rest_framework import generics, status, permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -313,8 +314,99 @@ def calendar_tasks(request):
     return Response(tasks_by_date)
 
 
+
+
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+import json
+from .models_crm import CrmJob, CrmTask, CrmTaskFile, CrmTaskComment
+
+
+@csrf_exempt
+@require_http_methods(["GET", "POST", "PATCH", "DELETE"])
+def job_tasks_crud(request, pk):
+    try:
+        job = get_object_or_404(CrmJob, pk=pk)
+
+        if request.method == "GET":
+            # Получить все задачи
+            tasks = CrmTask.objects.filter(job=job)
+            data = [
+                {
+                    "id": t.id,
+                    "title": t.title,
+                    "description": t.description,
+                    "task_type": t.task_type,
+                    "assigned_to": t.assigned_to,
+                    "subtasks": t.subtasks,
+                    "comments": [
+                        {"author": c.author, "text": c.text}
+                        for c in t.crm_comments.all()
+                    ],
+                    "files": [f.file.url for f in t.crm_files.all()],
+                }
+                for t in tasks
+            ]
+            return JsonResponse(data, safe=False)
+
+        elif request.method == "POST":
+            # Создание задачи
+            if request.content_type.startswith("multipart/form-data"):
+                data = json.loads(request.POST.get("data", "{}"))
+                files = request.FILES.getlist("files")
+            else:
+                data = json.loads(request.body)
+                files = []
+
+            task = CrmTask.objects.create(
+                job=job,
+                title=data.get("title", ""),
+                description=data.get("description", ""),
+                task_type=data.get("task_type", "SIMPLE"),
+                assigned_to=data.get("assigned_to", ""),
+                subtasks=data.get("subtasks", []),
+            )
+
+            for f in files:
+                CrmTaskFile.objects.create(task=task, file=f)
+
+            if "comment" in data:
+                CrmTaskComment.objects.create(task=task, author=job.client_email, text=data["comment"])
+
+            return JsonResponse({"id": task.id, "message": "Task created"}, status=201)
+
+        elif request.method == "PATCH":
+            # Обновление (частично)
+            data = json.loads(request.body)
+            task = get_object_or_404(CrmTask, id=data.get("task_id"), job=job)
+
+            task.title = data.get("title", task.title)
+            task.description = data.get("description", task.description)
+            task.task_type = data.get("task_type", task.task_type)
+            task.assigned_to = data.get("assigned_to", task.assigned_to)
+            task.subtasks = data.get("subtasks", task.subtasks)
+            task.save()
+
+            return JsonResponse({"message": "Task updated"})
+
+        elif request.method == "DELETE":
+            # Удаление задачи
+            data = json.loads(request.body)
+            task = get_object_or_404(CrmTask, id=data.get("task_id"), job=job)
+            task.delete()
+            return JsonResponse({"message": "Task deleted"})
+
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
+
+
+
+    
 # CRM API Views
 class CrmJobViewSet(viewsets.ModelViewSet):
+    
     queryset = CrmJob.objects.all()
     serializer_class = CrmJobSerializer
 
@@ -352,3 +444,5 @@ class CrmJobDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = CrmJob.objects.all()
     serializer_class = CrmJobSerializer
     permission_classes = [permissions.AllowAny]
+
+

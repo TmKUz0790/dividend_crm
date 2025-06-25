@@ -23,12 +23,21 @@ class CrmJob(models.Model):
     def __str__(self):
         return self.title
 
-# Для задач и комментариев/файлов можно добавить аналогично:
 class CrmTask(models.Model):
+    TASK_TYPE_CHOICES = [
+        ("SIMPLE", "Обычная"),
+        ("FEEDBACK", "Обратная связь"),
+        ("MEETING", "Встреча"),
+    ]
+
     job = models.ForeignKey(CrmJob, on_delete=models.CASCADE, related_name='crm_tasks')
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True, default="")
-    # ... другие поля задачи ...
+    
+    task_type = models.CharField(max_length=20, choices=TASK_TYPE_CHOICES, default="SIMPLE")
+    assigned_to = models.CharField(max_length=255, blank=True, default="")
+    subtasks = models.JSONField(blank=True, default=list)
+
 
 class CrmTaskComment(models.Model):
     task = models.ForeignKey(CrmTask, on_delete=models.CASCADE, related_name='crm_comments')

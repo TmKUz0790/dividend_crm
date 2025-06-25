@@ -2,6 +2,7 @@ from django.urls import path
 from . import api_views
 from .api_jwt_email import EmailTokenObtainPairView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from .api_views import job_tasks_crud
 urlpatterns = [
     # JWT Auth
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -32,5 +33,7 @@ urlpatterns = [
     # New Job CRUD APIs (DRF)
     path('api/crm/jobs/', api_views.CrmJobListCreateView.as_view(), name='crmjob-list'),
     path('api/crm/jobs/<int:pk>/', api_views.CrmJobDetailView.as_view(), name='crmjob-detail'),
+    path('api/crm/jobs/<int:pk>/tasks/', job_tasks_crud, name='crm_job_tasks_crud'),
+
 ]
 
