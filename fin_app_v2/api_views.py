@@ -329,6 +329,12 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 import json
 from .models_crm import CrmJob, CrmTask, CrmTaskFile, CrmTaskComment
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+import json
+from .models_crm import CrmJob, CrmTask, CrmTaskFile, CrmTaskComment
 
 @csrf_exempt
 @require_http_methods(["GET", "POST", "PATCH", "DELETE"])
@@ -337,7 +343,6 @@ def job_tasks_crud(request, pk):
         job = get_object_or_404(CrmJob, pk=pk)
 
         if request.method == "GET":
-            # Получить все задачи
             tasks = CrmTask.objects.filter(job=job)
             data = [
                 {
@@ -358,7 +363,6 @@ def job_tasks_crud(request, pk):
             return JsonResponse(data, safe=False)
 
         elif request.method == "POST":
-            # Создание задачи
             if request.content_type.startswith("multipart/form-data"):
                 data = json.loads(request.POST.get("data", "{}"))
                 files = request.FILES.getlist("files")
@@ -383,39 +387,14 @@ def job_tasks_crud(request, pk):
 
             return JsonResponse({"id": task.id, "message": "Task created"}, status=201)
 
-       
-        elif request.method == "DELETE":
-            if request.content_type.startswith("multipart/form-data"):
-                data = json.loads(request.POST.get("data", "{}"))
-            else:
-                data = json.loads(request.body)
-            task = get_object_or_404(CrmTask, id=data.get("task_id"), job=job)
-            task.delete()
-            return JsonResponse({"message": "Task deleted"})
-
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=500)
-    
-
-@csrf_exempt
-@require_http_methods(["GET", "POST", "PATCH", "DELETE"])
-def job_tasks_crud(request, pk):
-    try:
-        job = get_object_or_404(CrmJob, pk=pk)
-
-        if request.method == "PATCH":
+        elif request.method == "PATCH":
             if request.content_type.startswith("multipart/form-data"):
                 data_str = request.POST.get("data", "{}")
-                print("PATCH multipart data_str:", data_str)
                 data = json.loads(data_str)
                 files = request.FILES.getlist("files")
             else:
-                body = request.body.decode('utf-8')
-                print("PATCH json body:", body)
-                data = json.loads(body)
+                data = json.loads(request.body)
                 files = []
-
-            print("PATCH task_id:", data.get("task_id"))
 
             task = get_object_or_404(CrmTask, id=data.get("task_id"), job=job)
 
@@ -428,20 +407,33 @@ def job_tasks_crud(request, pk):
 
             files_to_keep = data.get("files_to_keep", [])
             existing_files = CrmTaskFile.objects.filter(task=task)
+
             # Удаляем файлы, которых нет в files_to_keep
             for f in existing_files:
                 if f.id not in files_to_keep:
                     f.delete()
+
             # Добавляем новые файлы
             for f in files:
                 CrmTaskFile.objects.create(task=task, file=f)
 
             return JsonResponse({"message": "Task updated"})
 
-        # остальные методы без изменений...
+        elif request.method == "DELETE":
+            if request.content_type.startswith("multipart/form-data"):
+                data = json.loads(request.POST.get("data", "{}"))
+            else:
+                data = json.loads(request.body)
+            task = get_object_or_404(CrmTask, id=data.get("task_id"), job=job)
+            task.delete()
+            return JsonResponse({"message": "Task deleted"})
+
+        # Если вдруг сюда дошли - метод не поддерживается
+        return JsonResponse({"error": "Method not allowed"}, status=405)
+
     except Exception as e:
         print("Exception in job_tasks_crud:", str(e))
-        return JsonResponse({"error": str(e)}, status=500)    
+        return JsonResponse({"error": str(e)}, status=500)
 
 
 from rest_framework.decorators import api_view, permission_classes
