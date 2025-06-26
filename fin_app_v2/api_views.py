@@ -384,7 +384,6 @@ def job_tasks_crud(request, pk):
             return JsonResponse({"id": task.id, "message": "Task created"}, status=201)
 
         elif request.method == "PATCH":
-            # Обновление задачи
             if request.content_type.startswith("multipart/form-data"):
                 data = json.loads(request.POST.get("data", "{}"))
                 files = request.FILES.getlist("files")
@@ -394,6 +393,7 @@ def job_tasks_crud(request, pk):
 
             task = get_object_or_404(CrmTask, id=data.get("task_id"), job=job)
 
+            # Обновляем поля задачи
             task.title = data.get("title", task.title)
             task.description = data.get("description", task.description)
             task.task_type = data.get("task_type", task.task_type)
@@ -401,11 +401,23 @@ def job_tasks_crud(request, pk):
             task.subtasks = data.get("subtasks", task.subtasks)
             task.save()
 
+            # Получаем список файлов, которые надо оставить (передаются с фронта)
+            files_to_keep = data.get("files_to_keep", [])  # ожидается список ID файлов
+
+            # Удаляем все файлы, которые не в списке files_to_keep
+            task_files = CrmTaskFile.objects.filter(task=task)
+            for tf in task_files:
+                if tf.id not in files_to_keep:
+                    tf.delete()
+
+            # Добавляем новые файлы из запроса
             for f in files:
                 CrmTaskFile.objects.create(task=task, file=f)
 
             return JsonResponse({"message": "Task updated"})
+        
 
+        
         elif request.method == "DELETE":
             # Удаление задачи
             if request.content_type.startswith("multipart/form-data"):
