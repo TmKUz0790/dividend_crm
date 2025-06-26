@@ -4,6 +4,9 @@ from .api_jwt_email import EmailTokenObtainPairView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .api_views import job_tasks_crud
 from .api_views import all_crm_tasks
+
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
     # JWT Auth
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -39,3 +42,5 @@ urlpatterns = [
 
 ]
 
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
