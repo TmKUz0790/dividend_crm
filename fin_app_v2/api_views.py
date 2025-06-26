@@ -323,6 +323,12 @@ from django.shortcuts import get_object_or_404
 import json
 from .models_crm import CrmJob, CrmTask, CrmTaskFile, CrmTaskComment
 
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+import json
+from .models_crm import CrmJob, CrmTask, CrmTaskFile, CrmTaskComment
 
 @csrf_exempt
 @require_http_methods(["GET", "POST", "PATCH", "DELETE"])
@@ -378,8 +384,14 @@ def job_tasks_crud(request, pk):
             return JsonResponse({"id": task.id, "message": "Task created"}, status=201)
 
         elif request.method == "PATCH":
-            # Обновление (частично)
-            data = json.loads(request.body)
+            # Обновление задачи
+            if request.content_type.startswith("multipart/form-data"):
+                data = json.loads(request.POST.get("data", "{}"))
+                files = request.FILES.getlist("files")
+            else:
+                data = json.loads(request.body)
+                files = []
+
             task = get_object_or_404(CrmTask, id=data.get("task_id"), job=job)
 
             task.title = data.get("title", task.title)
@@ -389,17 +401,24 @@ def job_tasks_crud(request, pk):
             task.subtasks = data.get("subtasks", task.subtasks)
             task.save()
 
+            for f in files:
+                CrmTaskFile.objects.create(task=task, file=f)
+
             return JsonResponse({"message": "Task updated"})
 
         elif request.method == "DELETE":
             # Удаление задачи
-            data = json.loads(request.body)
+            if request.content_type.startswith("multipart/form-data"):
+                data = json.loads(request.POST.get("data", "{}"))
+            else:
+                data = json.loads(request.body)
             task = get_object_or_404(CrmTask, id=data.get("task_id"), job=job)
             task.delete()
             return JsonResponse({"message": "Task deleted"})
 
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
+
 
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
