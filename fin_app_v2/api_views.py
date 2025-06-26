@@ -351,7 +351,7 @@ def job_tasks_crud(request, pk):
                         {"author": c.author, "text": c.text}
                         for c in t.crm_comments.all()
                     ],
-                    "files": [f.file.url for f in t.crm_files.all()],
+                    "files": [{"id": f.id, "url": f.file.url} for f in t.crm_files.all()],
                 }
                 for t in tasks
             ]
@@ -393,7 +393,6 @@ def job_tasks_crud(request, pk):
 
             task = get_object_or_404(CrmTask, id=data.get("task_id"), job=job)
 
-            # Обновляем поля задачи
             task.title = data.get("title", task.title)
             task.description = data.get("description", task.description)
             task.task_type = data.get("task_type", task.task_type)
@@ -401,25 +400,19 @@ def job_tasks_crud(request, pk):
             task.subtasks = data.get("subtasks", task.subtasks)
             task.save()
 
-            # Получаем список файлов, которые надо оставить (передаются с фронта)
-            files_to_keep = data.get("files_to_keep", [])  # ожидается список ID файлов
-
-            # Удаляем все файлы, которые не в списке files_to_keep
-            task_files = CrmTaskFile.objects.filter(task=task)
-            for tf in task_files:
-                if tf.id not in files_to_keep:
-                    tf.delete()
-
-            # Добавляем новые файлы из запроса
+            files_to_keep = data.get("files_to_keep", [])
+            existing_files = CrmTaskFile.objects.filter(task=task)
+            # Удаляем файлы, которых нет в files_to_keep
+            for f in existing_files:
+                if f.id not in files_to_keep:
+                    f.delete()
+            # Добавляем новые файлы
             for f in files:
                 CrmTaskFile.objects.create(task=task, file=f)
 
             return JsonResponse({"message": "Task updated"})
-        
 
-        
         elif request.method == "DELETE":
-            # Удаление задачи
             if request.content_type.startswith("multipart/form-data"):
                 data = json.loads(request.POST.get("data", "{}"))
             else:
