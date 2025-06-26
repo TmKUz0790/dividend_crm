@@ -27,12 +27,17 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "https://fixed-dividcrm-2.vercel.app",
+    "https://finprojectfordbr-master-2-production.up.railway.app"
+]
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    'https://web-production-b124.up.railway.app',
-    'https://fixed-dividcrm-2.vercel.app',
+    "https://fixed-dividcrm-2.vercel.app",
+    "https://finprojectfordbr-master-2-production.up.railway.app"
 ]
 
 
