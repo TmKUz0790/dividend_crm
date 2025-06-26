@@ -391,6 +391,10 @@ def job_tasks_crud(request, pk):
                 data = json.loads(request.body)
                 files = []
 
+            print("PATCH request data:", data)
+            print("Job pk from URL:", pk)
+
+            # Попытка получить задачу с учетом job
             task = get_object_or_404(CrmTask, id=data.get("task_id"), job=job)
 
             task.title = data.get("title", task.title)
