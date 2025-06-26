@@ -313,116 +313,86 @@ def calendar_tasks(request):
 
     return Response(tasks_by_date)
 
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_http_methods
-from django.http import JsonResponse
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status, permissions, parsers
 from django.shortcuts import get_object_or_404
+from .models import CrmJob, CrmTask, CrmTaskFile, CrmTaskComment
+from .serializers import CrmTaskSerializer, CrmTaskFileSerializer, CrmTaskCommentSerializer
 import json
-from .models_crm import CrmJob, CrmTask, CrmTaskFile, CrmTaskComment
 
-@csrf_exempt
-@require_http_methods(["GET", "POST", "PATCH", "DELETE"])
-def job_tasks_crud(request, pk):
-    try:
-        job = get_object_or_404(CrmJob, pk=pk)
 
-        if request.method == "GET":
-            tasks = CrmTask.objects.filter(job=job).prefetch_related('crm_comments', 'crm_files')
-            data = [
-                {
-                    "id": t.id,
-                    "title": t.title,
-                    "description": t.description,
-                    "task_type": t.task_type,
-                    "assigned_to": t.assigned_to,
-                    "subtasks": t.subtasks,
-                    "job": t.job.id,
-                    "comments": [
-                        {"author": c.author, "text": c.text, "created_at": c.created_at.isoformat()}
-                        for c in t.crm_comments.all()
-                    ],
-                    "files": [{"id": f.id, "url": f.file.url} for f in t.crm_files.all()],
-                }
-                for t in tasks
-            ]
-            return JsonResponse(data, safe=False)
+class JobTaskCrudAPIView(APIView):
+    permission_classes = [permissions.AllowAny]
+    parser_classes = [parsers.MultiPartParser, parsers.JSONParser]
 
-        elif request.method == "POST":
-            if request.content_type.startswith("multipart/form-data"):
-                data = json.loads(request.POST.get("data", "{}"))
-                files = request.FILES.getlist("files")
-            else:
-                data = json.loads(request.body)
-                files = []
+    def get(self, request, pk):
+        tasks = CrmTask.objects.filter(job_id=pk).order_by('-id')
+        serializer = CrmTaskSerializer(tasks, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
-            task = CrmTask.objects.create(
-                job=job,
-                title=data.get("title", ""),
-                description=data.get("description", ""),
-                task_type=data.get("task_type", "SIMPLE"),
-                assigned_to=data.get("assigned_to", ""),
-                subtasks=data.get("subtasks", []),
-            )
+    def post(self, request, pk):
+        data = request.data.copy()
+        subtasks = json.loads(data.get('subtasks', '[]'))
+        files = request.FILES.getlist('files')
 
-            for f in files:
-                CrmTaskFile.objects.create(task=task, file=f)
+        task = CrmTask.objects.create(
+            job_id=pk,
+            title=data.get('title', ''),
+            description=data.get('description', ''),
+            task_type=data.get('task_type', 'SIMPLE'),
+            assigned_to=data.get('assigned_to', ''),
+            subtasks=subtasks
+        )
 
-            if "comment" in data:
-                CrmTaskComment.objects.create(task=task, author=job.client_email, text=data["comment"])
+        if comment_text := data.get('comment'):
+            CrmTaskComment.objects.create(task=task, author='newcomp@gmail.com', text=comment_text)
 
-            return JsonResponse({"id": task.id, "message": "Task created"}, status=201)
+        for file in files:
+            CrmTaskFile.objects.create(task=task, file=file)
 
-        elif request.method == "PATCH":
-            if request.content_type.startswith("multipart/form-data"):
-                data_str = request.POST.get("data", "{}")
-                data = json.loads(data_str)
-                files = request.FILES.getlist("files")
-            else:
-                data = json.loads(request.body)
-                files = []
+        return Response({'success': True, 'id': task.id}, status=status.HTTP_201_CREATED)
 
-            task_id = data.get("task_id")
-            if not task_id:
-                return JsonResponse({"error": "task_id required"}, status=400)
+    def patch(self, request, pk):
+        data = request.data.copy()
+        task_id = data.get('task_id')
+        if not task_id:
+            return Response({'error': 'task_id required'}, status=status.HTTP_400_BAD_REQUEST)
 
-            task = get_object_or_404(CrmTask, id=task_id, job=job)
+        task = get_object_or_404(CrmTask, pk=task_id)
+        if task.job_id != pk:
+            return Response({'error': 'Задача не принадлежит проекту'}, status=status.HTTP_400_BAD_REQUEST)
 
-            task.title = data.get("title", task.title)
-            task.description = data.get("description", task.description)
-            task.task_type = data.get("task_type", task.task_type)
-            task.assigned_to = data.get("assigned_to", task.assigned_to)
-            task.subtasks = data.get("subtasks", task.subtasks)
-            task.save()
+        task.title = data.get('title', task.title)
+        task.description = data.get('description', task.description)
+        task.task_type = data.get('task_type', task.task_type)
+        task.assigned_to = data.get('assigned_to', task.assigned_to)
+        task.subtasks = json.loads(data.get('subtasks', '[]'))
+        task.save()
 
-            files_to_keep = data.get("files_to_keep", [])
-            existing_files = CrmTaskFile.objects.filter(task=task)
-            for f in existing_files:
-                if f.id not in files_to_keep:
-                    f.delete()
-            for f in files:
-                CrmTaskFile.objects.create(task=task, file=f)
+        if comment_text := data.get('comment'):
+            CrmTaskComment.objects.create(task=task, author='newcomp@gmail.com', text=comment_text)
 
-            return JsonResponse({"message": "Task updated"})
+        keep_ids = json.loads(data.get('files_to_keep', '[]'))
+        CrmTaskFile.objects.filter(task=task).exclude(id__in=keep_ids).delete()
 
-        elif request.method == "DELETE":
-            if request.content_type.startswith("multipart/form-data"):
-                data = json.loads(request.POST.get("data", "{}"))
-            else:
-                data = json.loads(request.body)
+        for f in request.FILES.getlist('files'):
+            CrmTaskFile.objects.create(task=task, file=f)
 
-            task_id = data.get("task_id")
-            if not task_id:
-                return JsonResponse({"error": "task_id required"}, status=400)
+        return Response({'success': True, 'updated': task.id}, status=status.HTTP_200_OK)
 
-            task = get_object_or_404(CrmTask, id=task_id, job=job)
-            task.delete()
-            return JsonResponse({"message": "Task deleted"})
+    def delete(self, request, pk):
+        task_id = request.data.get('task_id')
+        if not task_id:
+            return Response({'error': 'task_id required'}, status=status.HTTP_400_BAD_REQUEST)
 
-        return JsonResponse({"error": "Method not allowed"}, status=405)
+        task = get_object_or_404(CrmTask, pk=task_id)
+        if task.job_id != pk:
+            return Response({'error': 'Задача не принадлежит проекту'}, status=status.HTTP_400_BAD_REQUEST)
 
-    except Exception as e:
-        print("Exception in job_tasks_crud:", str(e))
-        return JsonResponse({"error": str(e)}, status=500)
+        task.delete()
+        return Response({'success': True}, status=status.HTTP_200_OK)
+
 
 
 from rest_framework.decorators import api_view, permission_classes
