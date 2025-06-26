@@ -37,7 +37,7 @@ urlpatterns = [
     # New Job CRUD APIs (DRF)
     path('api/crm/jobs/', api_views.CrmJobListCreateView.as_view(), name='crmjob-list'),
     path('api/crm/jobs/<int:pk>/', api_views.CrmJobDetailView.as_view(), name='crmjob-detail'),
-    path('api/crm/jobs/<int:pk>/tasks/', JobTaskCrudAPIView.as_view(), name='crm_job_tasks_crud'),
+    path('api/crm/jobs/<int:pk>/tasks/', api_views.JobTaskCrudAPIView.as_view(), name='crm_job_tasks_crud'),
     path('api/crm/tasks/', all_crm_tasks, name='all_crm_tasks'),
 
 ]
