@@ -313,22 +313,6 @@ def calendar_tasks(request):
 
     return Response(tasks_by_date)
 
-
-
-
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_http_methods
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
-import json
-from .models_crm import CrmJob, CrmTask, CrmTaskFile, CrmTaskComment
-
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_http_methods
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
-import json
-from .models_crm import CrmJob, CrmTask, CrmTaskFile, CrmTaskComment
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.http import JsonResponse
@@ -343,7 +327,7 @@ def job_tasks_crud(request, pk):
         job = get_object_or_404(CrmJob, pk=pk)
 
         if request.method == "GET":
-            tasks = CrmTask.objects.filter(job=job)
+            tasks = CrmTask.objects.filter(job=job).prefetch_related('crm_comments', 'crm_files')
             data = [
                 {
                     "id": t.id,
@@ -352,8 +336,9 @@ def job_tasks_crud(request, pk):
                     "task_type": t.task_type,
                     "assigned_to": t.assigned_to,
                     "subtasks": t.subtasks,
+                    "job": t.job.id,
                     "comments": [
-                        {"author": c.author, "text": c.text}
+                        {"author": c.author, "text": c.text, "created_at": c.created_at.isoformat()}
                         for c in t.crm_comments.all()
                     ],
                     "files": [{"id": f.id, "url": f.file.url} for f in t.crm_files.all()],
@@ -396,7 +381,11 @@ def job_tasks_crud(request, pk):
                 data = json.loads(request.body)
                 files = []
 
-            task = get_object_or_404(CrmTask, id=data.get("task_id"), job=job)
+            task_id = data.get("task_id")
+            if not task_id:
+                return JsonResponse({"error": "task_id required"}, status=400)
+
+            task = get_object_or_404(CrmTask, id=task_id, job=job)
 
             task.title = data.get("title", task.title)
             task.description = data.get("description", task.description)
@@ -407,13 +396,9 @@ def job_tasks_crud(request, pk):
 
             files_to_keep = data.get("files_to_keep", [])
             existing_files = CrmTaskFile.objects.filter(task=task)
-
-            # Удаляем файлы, которых нет в files_to_keep
             for f in existing_files:
                 if f.id not in files_to_keep:
                     f.delete()
-
-            # Добавляем новые файлы
             for f in files:
                 CrmTaskFile.objects.create(task=task, file=f)
 
@@ -424,11 +409,15 @@ def job_tasks_crud(request, pk):
                 data = json.loads(request.POST.get("data", "{}"))
             else:
                 data = json.loads(request.body)
-            task = get_object_or_404(CrmTask, id=data.get("task_id"), job=job)
+
+            task_id = data.get("task_id")
+            if not task_id:
+                return JsonResponse({"error": "task_id required"}, status=400)
+
+            task = get_object_or_404(CrmTask, id=task_id, job=job)
             task.delete()
             return JsonResponse({"message": "Task deleted"})
 
-        # Если вдруг сюда дошли - метод не поддерживается
         return JsonResponse({"error": "Method not allowed"}, status=405)
 
     except Exception as e:
