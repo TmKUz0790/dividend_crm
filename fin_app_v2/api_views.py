@@ -383,18 +383,40 @@ def job_tasks_crud(request, pk):
 
             return JsonResponse({"id": task.id, "message": "Task created"}, status=201)
 
-        elif request.method == "PATCH":
+       
+        elif request.method == "DELETE":
             if request.content_type.startswith("multipart/form-data"):
                 data = json.loads(request.POST.get("data", "{}"))
-                files = request.FILES.getlist("files")
             else:
                 data = json.loads(request.body)
+            task = get_object_or_404(CrmTask, id=data.get("task_id"), job=job)
+            task.delete()
+            return JsonResponse({"message": "Task deleted"})
+
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
+    
+
+@csrf_exempt
+@require_http_methods(["GET", "POST", "PATCH", "DELETE"])
+def job_tasks_crud(request, pk):
+    try:
+        job = get_object_or_404(CrmJob, pk=pk)
+
+        if request.method == "PATCH":
+            if request.content_type.startswith("multipart/form-data"):
+                data_str = request.POST.get("data", "{}")
+                print("PATCH multipart data_str:", data_str)
+                data = json.loads(data_str)
+                files = request.FILES.getlist("files")
+            else:
+                body = request.body.decode('utf-8')
+                print("PATCH json body:", body)
+                data = json.loads(body)
                 files = []
 
-            print("PATCH request data:", data)
-            print("Job pk from URL:", pk)
+            print("PATCH task_id:", data.get("task_id"))
 
-            # Попытка получить задачу с учетом job
             task = get_object_or_404(CrmTask, id=data.get("task_id"), job=job)
 
             task.title = data.get("title", task.title)
@@ -416,17 +438,10 @@ def job_tasks_crud(request, pk):
 
             return JsonResponse({"message": "Task updated"})
 
-        elif request.method == "DELETE":
-            if request.content_type.startswith("multipart/form-data"):
-                data = json.loads(request.POST.get("data", "{}"))
-            else:
-                data = json.loads(request.body)
-            task = get_object_or_404(CrmTask, id=data.get("task_id"), job=job)
-            task.delete()
-            return JsonResponse({"message": "Task deleted"})
-
+        # остальные методы без изменений...
     except Exception as e:
-        return JsonResponse({"error": str(e)}, status=500)
+        print("Exception in job_tasks_crud:", str(e))
+        return JsonResponse({"error": str(e)}, status=500)    
 
 
 from rest_framework.decorators import api_view, permission_classes
