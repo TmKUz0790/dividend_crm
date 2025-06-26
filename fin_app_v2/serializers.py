@@ -162,12 +162,12 @@ class CrmJobSerializer(serializers.ModelSerializer):
 
 
 class CrmTaskSerializer(serializers.ModelSerializer):
+    job = serializers.PrimaryKeyRelatedField(read_only=True)
+
     class Meta:
         model = CrmTask
-        fields = [
-            'id', 'job', 'title', 'description'
-            # Добавьте другие поля задачи, если они есть
-        ]
+        fields = '__all__'
+
 
 
 class CrmTaskCommentSerializer(serializers.ModelSerializer):
