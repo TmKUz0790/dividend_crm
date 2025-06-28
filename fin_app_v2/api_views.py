@@ -900,7 +900,14 @@ class JobTaskCrudAPIView(APIView):
             data = request.data.copy()
 
             # Parse subtasks
-            subtasks = request.data.getlist('subtasks')
+            subtasks_raw = request.data.get('subtasks', '[]')
+            try:
+                subtasks = json.loads(subtasks_raw)
+            except json.JSONDecodeError:
+                subtasks = []
+
+
+            
 
             # Create task
             task = CrmTask.objects.create(
@@ -966,9 +973,13 @@ class JobTaskCrudAPIView(APIView):
             task.assigned_to = data.get('assigned_to', task.assigned_to)
 
             # Update subtasks
-            task.subtasks = request.data.getlist('subtasks')
+            subtasks_raw = request.data.get('subtasks', '[]')
+            try:
+                subtasks = json.loads(subtasks_raw)
+            except json.JSONDecodeError:
+                subtasks = []
 
-            task.save()
+            task.subtasks = subtasks
 
             # Add new comment
             if data.get('comment'):
