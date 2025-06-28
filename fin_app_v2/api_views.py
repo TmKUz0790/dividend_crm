@@ -842,6 +842,13 @@ def calendar_tasks(request):
 
 
 # ENHANCED CRM Task CRUD API with 100MB file support
+import json
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status, permissions, parsers
+from django.shortcuts import get_object_or_404
+from .models_crm import CrmTask, CrmTaskComment, CrmTaskFile
+
 class JobTaskCrudAPIView(APIView):
     permission_classes = [permissions.AllowAny]
     parser_classes = [parsers.MultiPartParser, parsers.JSONParser, parsers.FormParser]
@@ -849,12 +856,12 @@ class JobTaskCrudAPIView(APIView):
     def get(self, request, pk):
         """Get all tasks with enhanced file information"""
         try:
-            tasks = CrmTask.objects.filter(job_id=pk).prefetch_related('crm_comments', 'crm_files').order_by(
-                '-created_at')
+            tasks = CrmTask.objects.filter(job_id=pk).prefetch_related('crm_comments', 'crm_files') \
+                                  .order_by('-created_at')
 
             tasks_data = []
             for task in tasks:
-                task_data = {
+                tasks_data.append({
                     'id': task.id,
                     'title': task.title,
                     'description': task.description,
@@ -865,32 +872,31 @@ class JobTaskCrudAPIView(APIView):
                     'updated_at': task.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
                     'comments': [
                         {
-                            'id': comment.id,
-                            'author': comment.author,
-                            'text': comment.text,
-                            'created_at': comment.created_at.strftime('%Y-%m-%d %H:%M:%S')
+                            'id': c.id,
+                            'author': c.author,
+                            'text': c.text,
+                            'created_at': c.created_at.strftime('%Y-%m-%d %H:%M:%S')
                         }
-                        for comment in task.crm_comments.all()
+                        for c in task.crm_comments.all()
                     ],
                     'files': [
                         {
-                            'id': file_obj.id,
-                            'filename': file_obj.filename,
-                            'file_url': file_obj.file.url,
-                            'file_size_mb': file_obj.file_size_mb,
-                            'file_extension': file_obj.file_extension,
-                            'is_image': file_obj.is_image,
-                            'is_document': file_obj.is_document,
-                            'is_video': file_obj.is_video,
-                            'uploaded_at': file_obj.uploaded_at.strftime('%Y-%m-%d %H:%M:%S'),
-                            'uploaded_by': file_obj.uploaded_by
+                            'id': f.id,
+                            'filename': f.filename,
+                            'file_url': f.file.url,
+                            'file_size_mb': f.file_size_mb,
+                            'file_extension': f.file_extension,
+                            'is_image': f.is_image,
+                            'is_document': f.is_document,
+                            'is_video': f.is_video,
+                            'uploaded_at': f.uploaded_at.strftime('%Y-%m-%d %H:%M:%S'),
+                            'uploaded_by': f.uploaded_by
                         }
-                        for file_obj in task.crm_files.all()
+                        for f in task.crm_files.all()
                     ]
-                }
-                tasks_data.append(task_data)
-
+                })
             return Response(tasks_data, status=status.HTTP_200_OK)
+
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
@@ -898,18 +904,14 @@ class JobTaskCrudAPIView(APIView):
         """Create new task with files (100MB support)"""
         try:
             data = request.data.copy()
-
-            # Parse subtasks
-            subtasks_raw = request.data.get('subtasks', '[]')
+            # parse subtasks JSON
+            subtasks = []
+            raw = data.get('subtasks', '[]')
             try:
-                subtasks = json.loads(subtasks_raw)
+                subtasks = json.loads(raw)
             except json.JSONDecodeError:
-                subtasks = []
+                pass
 
-
-            
-
-            # Create task
             task = CrmTask.objects.create(
                 job_id=pk,
                 title=data.get('title', ''),
@@ -919,7 +921,6 @@ class JobTaskCrudAPIView(APIView):
                 subtasks=subtasks
             )
 
-            # Add comment
             if data.get('comment'):
                 CrmTaskComment.objects.create(
                     task=task,
@@ -927,22 +928,19 @@ class JobTaskCrudAPIView(APIView):
                     text=data.get('comment')
                 )
 
-            # Upload files with 100MB support
             uploaded_files = []
-            files = request.FILES.getlist('files')
-            for file_obj in files:
-                # File validation is handled by model validators
-                task_file = CrmTaskFile.objects.create(
+            for f in request.FILES.getlist('files'):
+                tf = CrmTaskFile.objects.create(
                     task=task,
-                    file=file_obj,
+                    file=f,
                     uploaded_by=data.get('author', 'system@example.com')
                 )
                 uploaded_files.append({
-                    'id': task_file.id,
-                    'filename': task_file.filename,
-                    'file_url': task_file.file.url,
-                    'file_size_mb': task_file.file_size_mb,
-                    'file_extension': task_file.file_extension
+                    'id': tf.id,
+                    'filename': tf.filename,
+                    'file_url': tf.file.url,
+                    'file_size_mb': tf.file_size_mb,
+                    'file_extension': tf.file_extension
                 })
 
             return Response({
@@ -960,28 +958,28 @@ class JobTaskCrudAPIView(APIView):
         try:
             data = request.data.copy()
             task_id = data.get('task_id')
-
             if not task_id:
                 return Response({'error': 'task_id required'}, status=status.HTTP_400_BAD_REQUEST)
 
             task = get_object_or_404(CrmTask, pk=task_id, job_id=pk)
 
-            # Update task fields
+            # 1) Обновляем базовые поля
             task.title = data.get('title', task.title)
             task.description = data.get('description', task.description)
             task.task_type = data.get('task_type', task.task_type)
             task.assigned_to = data.get('assigned_to', task.assigned_to)
 
-            # Update subtasks
-            subtasks_raw = request.data.get('subtasks', '[]')
+            # 2) Обновляем subtasks
+            raw_sub = data.get('subtasks', '[]')
             try:
-                subtasks = json.loads(subtasks_raw)
+                task.subtasks = json.loads(raw_sub)
             except json.JSONDecodeError:
-                subtasks = []
+                pass
 
-            task.subtasks = subtasks
+            # --- обязательно сохраняем изменения ---
+            task.save()
 
-            # Add new comment
+            # 3) Добавляем новый комментарий, если есть
             if data.get('comment'):
                 CrmTaskComment.objects.create(
                     task=task,
@@ -989,35 +987,30 @@ class JobTaskCrudAPIView(APIView):
                     text=data.get('comment')
                 )
 
-            # Handle file management
-            files_to_keep_data = data.get('files_to_keep', '[]')
-            if isinstance(files_to_keep_data, str):
-                try:
-                    files_to_keep = json.loads(files_to_keep_data)
-                except:
-                    files_to_keep = []
-            else:
-                files_to_keep = files_to_keep_data
+            # 4) Работа с файлами
+            # удаляем те, которых нет в списке files_to_keep
+            raw_keep = data.get('files_to_keep', '[]')
+            try:
+                keep_ids = json.loads(raw_keep) if isinstance(raw_keep, str) else raw_keep
+            except:
+                keep_ids = []
+            to_delete = task.crm_files.exclude(id__in=keep_ids)
+            deleted_count = to_delete.count()
+            to_delete.delete()
 
-            # Delete files not in keep list
-            files_deleted = task.crm_files.exclude(id__in=files_to_keep)
-            deleted_count = files_deleted.count()
-            files_deleted.delete()
-
-            # Add new files
+            # загружаем новые
             uploaded_files = []
-            new_files = request.FILES.getlist('files')
-            for file_obj in new_files:
-                task_file = CrmTaskFile.objects.create(
+            for f in request.FILES.getlist('files'):
+                tf = CrmTaskFile.objects.create(
                     task=task,
-                    file=file_obj,
+                    file=f,
                     uploaded_by=data.get('author', 'system@example.com')
                 )
                 uploaded_files.append({
-                    'id': task_file.id,
-                    'filename': task_file.filename,
-                    'file_url': task_file.file.url,
-                    'file_size_mb': task_file.file_size_mb
+                    'id': tf.id,
+                    'filename': tf.filename,
+                    'file_url': tf.file.url,
+                    'file_size_mb': tf.file_size_mb
                 })
 
             return Response({
@@ -1039,13 +1032,8 @@ class JobTaskCrudAPIView(APIView):
                 return Response({'error': 'task_id required'}, status=status.HTTP_400_BAD_REQUEST)
 
             task = get_object_or_404(CrmTask, pk=task_id, job_id=pk)
-
-            # Count files before deletion
             files_count = task.crm_files.count()
-
-            # Delete task (files will be deleted automatically due to CASCADE)
             task.delete()
-
             return Response({
                 'success': True,
                 'message': f'Task and {files_count} files deleted successfully'
