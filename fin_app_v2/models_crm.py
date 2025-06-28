@@ -297,8 +297,10 @@ class CrmTaskFile(models.Model):
 
     @property
     def file_size_mb(self):
-        """Return file size in MB"""
-        return round(self.file.size / (1024 * 1024), 2) if self.file else 0
+        try:
+            return round(self.file.size / (1024 * 1024), 2) if self.file else 0
+        except Exception:
+            return 0
 
     @property
     def file_extension(self):
