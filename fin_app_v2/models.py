@@ -9,7 +9,7 @@ class Job(models.Model):
     client_email = models.EmailField(unique=True)
     client_password = models.CharField(max_length=100)
     over_all_income = models.PositiveIntegerField(default=0)  # Total income for the job
-    created_at = models.DateTimeField(auto_now_add=True,default=timezone.now)  # Add this field
+    created_at = models.DateTimeField(auto_now_add=True, null=True)  # Add this field
     def __str__(self):
         return self.title
 
