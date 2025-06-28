@@ -900,7 +900,7 @@ class JobTaskCrudAPIView(APIView):
             data = request.data.copy()
 
             # Parse subtasks
-            subtasks = json.loads(data.get('subtasks', '[]'))
+            subtasks = request.data.getlist('subtasks')
 
             # Create task
             task = CrmTask.objects.create(
@@ -966,7 +966,7 @@ class JobTaskCrudAPIView(APIView):
             task.assigned_to = data.get('assigned_to', task.assigned_to)
 
             # Update subtasks
-            subtasks = json.loads(data.get('subtasks', '[]'))
+            task.subtasks = request.data.getlist('subtasks')
 
             task.save()
 
