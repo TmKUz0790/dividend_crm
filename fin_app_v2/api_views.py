@@ -1391,3 +1391,11 @@ def get_company_suggestions(request):
 def crm_form_view(request):
     """Render CRM form template"""
     return render(request, 'crm_form.html')
+
+
+
+class UserListView(generics.ListAPIView):
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.AllowAny]

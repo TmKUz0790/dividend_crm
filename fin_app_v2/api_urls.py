@@ -59,7 +59,7 @@ from django.urls import path
 from . import api_views
 from .api_jwt_email import EmailTokenObtainPairView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from .api_views import all_crm_tasks
+from .api_views import UserListView, all_crm_tasks
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -113,6 +113,9 @@ urlpatterns = [
 
     # CRM Form View
     path('crm/create/', api_views.crm_form_view, name='crm_create'),
+
+
+    path('api/users/', UserListView.as_view(), name='user-list'),
 ]
 
 if settings.DEBUG:
