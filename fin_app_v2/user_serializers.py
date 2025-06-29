@@ -1,20 +1,16 @@
 # user_serializers.py
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from django.contrib.auth.hashers import make_password
 
 
 class UserListSerializer(serializers.ModelSerializer):
-    """Serializer for listing users (minimal data)"""
+    """List users with basic info"""
     full_name = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = [
-            'id', 'username', 'email', 'first_name', 'last_name',
-            'full_name', 'is_active', 'is_staff', 'is_superuser',
-            'date_joined', 'last_login'
-        ]
+        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'full_name',
+                  'is_active', 'is_staff', 'is_superuser', 'date_joined', 'last_login']
         read_only_fields = ['id', 'date_joined', 'last_login']
 
     def get_full_name(self, obj):
@@ -22,16 +18,14 @@ class UserListSerializer(serializers.ModelSerializer):
 
 
 class UserDetailSerializer(serializers.ModelSerializer):
-    """Serializer for user detail view"""
+    """User detail with permissions"""
     full_name = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = [
-            'id', 'username', 'email', 'first_name', 'last_name',
-            'full_name', 'is_active', 'is_staff', 'is_superuser',
-            'date_joined', 'last_login', 'groups', 'user_permissions'
-        ]
+        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'full_name',
+                  'is_active', 'is_staff', 'is_superuser', 'date_joined', 'last_login',
+                  'groups', 'user_permissions']
         read_only_fields = ['id', 'date_joined', 'last_login']
 
     def get_full_name(self, obj):
@@ -39,16 +33,14 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
-    """Serializer for creating new users"""
+    """Create new user"""
     password = serializers.CharField(write_only=True, min_length=8)
     password_confirm = serializers.CharField(write_only=True)
 
     class Meta:
         model = User
-        fields = [
-            'username', 'email', 'first_name', 'last_name',
-            'password', 'password_confirm', 'is_active', 'is_staff'
-        ]
+        fields = ['username', 'email', 'first_name', 'last_name',
+                  'password', 'password_confirm', 'is_active', 'is_staff']
         extra_kwargs = {
             'email': {'required': True},
             'first_name': {'required': True},
@@ -62,7 +54,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
 
     def validate_email(self, value):
         if User.objects.filter(email=value).exists():
-            raise serializers.ValidationError("User with this email already exists")
+            raise serializers.ValidationError("Email already exists")
         return value
 
     def create(self, validated_data):
@@ -75,27 +67,23 @@ class UserCreateSerializer(serializers.ModelSerializer):
 
 
 class UserUpdateSerializer(serializers.ModelSerializer):
-    """Serializer for updating users"""
+    """Update user info"""
 
     class Meta:
         model = User
-        fields = [
-            'username', 'email', 'first_name', 'last_name',
-            'is_active', 'is_staff', 'is_superuser'
-        ]
-        extra_kwargs = {
-            'email': {'required': True},
-        }
+        fields = ['username', 'email', 'first_name', 'last_name',
+                  'is_active', 'is_staff', 'is_superuser']
+        extra_kwargs = {'email': {'required': True}}
 
     def validate_email(self, value):
         user = self.instance
         if User.objects.filter(email=value).exclude(pk=user.pk).exists():
-            raise serializers.ValidationError("User with this email already exists")
+            raise serializers.ValidationError("Email already exists")
         return value
 
 
 class PasswordChangeSerializer(serializers.Serializer):
-    """Serializer for changing user password"""
+    """Change password"""
     new_password = serializers.CharField(min_length=8)
     confirm_password = serializers.CharField()
 

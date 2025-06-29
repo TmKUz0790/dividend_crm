@@ -119,21 +119,43 @@ urlpatterns = [
     path('api/users/', UserListView.as_view(), name='user-list'),
 
 
+    # Authentication
+    path('auth/token/', user_views.CustomAuthToken.as_view(), name='auth_token'),
+    path('auth/login/', user_views.login_view, name='auth_login'),
+    path('auth/logout/', user_views.logout_view, name='auth_logout'),
+    path('auth/check/', user_views.check_auth, name='auth_check'),
 
-    # User CRUD operations
+    # User CRUD
     path('users/', user_views.UserListCreateAPIView.as_view(), name='user_list_create'),
     path('users/<int:pk>/', user_views.UserRetrieveUpdateDestroyAPIView.as_view(), name='user_detail'),
-
-    # User management actions
     path('users/<int:pk>/change-password/', user_views.change_user_password, name='user_change_password'),
     path('users/<int:pk>/toggle-active/', user_views.toggle_user_active, name='user_toggle_active'),
-
-    # Bulk operations
     path('users/bulk-action/', user_views.bulk_user_action, name='user_bulk_action'),
-
-    # Statistics
     path('users/stats/', user_views.user_stats, name='user_stats'),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+    """
+
+
+
+Endpoints:
+POST /api/auth/token/ - Get token
+POST /api/auth/login/ - Session login
+POST /api/auth/logout/ - Logout
+GET /api/auth/check/ - Check auth
+
+GET /api/users/ - List users
+POST /api/users/ - Create user
+GET /api/users/{id}/ - User detail
+PUT/PATCH /api/users/{id}/ - Update user
+DELETE /api/users/{id}/ - Delete user
+POST /api/users/{id}/change-password/ - Change password
+POST /api/users/{id}/toggle-active/ - Toggle active
+POST /api/users/bulk-action/ - Bulk actions
+GET /api/users/stats/ - Statistics
+"""
