@@ -96,7 +96,8 @@ def job_tasks_api(request, pk):
             'money_for_task': task.money_for_task,
             'task_type': task.task_type,
             'deadline': task.deadline,
-            'job': task.job_id
+            'job': task.job_id,
+            'assigned_email': task.assigned_email 
         })
     return JsonResponse(data, safe=False)
 
@@ -123,7 +124,8 @@ def tasks_api(request):
                 'money_for_task': task.money_for_task,
                 'task_type': task.task_type,
                 'deadline': task.deadline,
-                'job': task.job_id
+                'job': task.job_id,
+                'assigned_email': task.assigned_email 
             })
         return JsonResponse(data, safe=False)
 
@@ -139,7 +141,8 @@ def tasks_api(request):
             task_percentage=data.get('task_percentage', 0),
             money_for_task=data.get('money_for_task', 0),
             task_type=data.get('task_type', 'SIMPLE'),
-            deadline=data.get('deadline')
+            deadline=data.get('deadline'),
+            assigned_email=data.get('assigned_email')
         )
 
         return JsonResponse({
@@ -152,7 +155,8 @@ def tasks_api(request):
             'money_for_task': task.money_for_task,
             'task_type': task.task_type,
             'deadline': task.deadline,
-            'job': task.job_id
+            'job': task.job_id,
+            'assigned_email': task.assigned_email 
         })
 
 
@@ -172,7 +176,8 @@ def task_detail_api(request, pk):
             'money_for_task': task.money_for_task,
             'task_type': task.task_type,
             'deadline': task.deadline,
-            'job': task.job_id
+            'job': task.job_id,
+            'assigned_email': task.assigned_email 
         })
 
     elif request.method in ['PUT', 'PATCH']:
@@ -194,6 +199,8 @@ def task_detail_api(request, pk):
             task.task_type = data['task_type']
         if 'deadline' in data:
             task.deadline = data['deadline']
+        if 'assigned_email' in data:
+            task.assigned_email = data['assigned_email']
 
         task.save()
 
@@ -207,7 +214,8 @@ def task_detail_api(request, pk):
             'money_for_task': task.money_for_task,
             'task_type': task.task_type,
             'deadline': task.deadline,
-            'job': task.job_id
+            'job': task.job_id,
+            'assigned_email': task.assigned_email 
         })
 
     elif request.method == 'DELETE':

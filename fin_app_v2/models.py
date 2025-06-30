@@ -51,6 +51,7 @@ class Task(models.Model):
     feedback = models.TextField(blank=True, null=True)
     money_for_task = models.PositiveIntegerField(default=0)
     paid = models.BooleanField(default=False)
+    assigned_email = models.EmailField(blank=True, null=True)
     task_type = models.CharField(
         max_length=7,
         choices=TASK_TYPE_CHOICES,
