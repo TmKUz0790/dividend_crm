@@ -35,8 +35,8 @@ class Job(models.Model):
 
 class Task(models.Model):
     TASK_TYPE_CHOICES = [
-        ('Simple', 'Обычная'),
-        ('Followed', 'Подписка')
+        ('Обычная', 'Обычная'),
+        ('Подписка', 'Подписка')
     ]
 
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='tasks')
