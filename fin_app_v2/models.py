@@ -35,8 +35,8 @@ class Job(models.Model):
 
 class Task(models.Model):
     TASK_TYPE_CHOICES = [
-        ('SIMPLE', 'Простая задача'),
-        ('PATPIS', 'Повторяющаяся задача')
+        ('Simple', 'Обычная'),
+        ('Followed', 'Подписка')
     ]
 
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='tasks')
@@ -53,7 +53,7 @@ class Task(models.Model):
     paid = models.BooleanField(default=False)
     assigned_email = models.EmailField(blank=True, null=True)
     task_type = models.CharField(
-        max_length=7,
+        max_length=10,
         choices=TASK_TYPE_CHOICES,
         default='SIMPLE'
     )
