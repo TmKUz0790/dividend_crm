@@ -55,7 +55,18 @@ class Task(models.Model):
     task_type = models.CharField(
         max_length=10,
         choices=TASK_TYPE_CHOICES,
-        default='SIMPLE'
+        default='Обычная'
+    )
+    task_status = models.CharField(
+        max_length=20,
+        default='Бошланмади',
+        choices=[
+            ('Бошланмади', 'Бошланмади'),
+            ('Иш бошланди', 'Иш бошланди'),
+            ('Текширишда', 'Текширишда'),
+            ('Топшириш жараёнида ', 'Топшириш жараёнида '),
+            ('Ёпилди', 'Ёпилди'),    
+        ]
     )
     # Новые поля для подтверждения задач
     confirmed = models.BooleanField(default=False)
@@ -120,7 +131,7 @@ import calendar
 # Add this method to your Task model
 def create_monthly_recurring_tasks(self):
     """Create recurring monthly tasks for a year if task type is PATPIS (Follow Task)"""
-    if self.task_type == 'PATPIS':
+    if self.task_type == 'Подписка':
         # Get today's date
         today = timezone.now().date()
         # Get the base task name (without month name)
@@ -151,7 +162,7 @@ def create_monthly_recurring_tasks(self):
                 description=self.description,
                 task_percentage=self.task_percentage,
                 money_for_task=self.money_for_task,
-                task_type='PATPIS',
+                task_type='Подписка',
                 deadline=target_date  # Set deadline to the same day in the target month
             )
             new_task.save()

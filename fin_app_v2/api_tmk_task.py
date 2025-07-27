@@ -97,7 +97,8 @@ def job_tasks_api(request, pk):
             'task_type': task.task_type,
             'deadline': task.deadline,
             'job': task.job_id,
-            'assigned_email': task.assigned_email 
+            'assigned_email': task.assigned_email,
+            'task_status': task.task_status
         })
     return JsonResponse(data, safe=False)
 
@@ -125,7 +126,8 @@ def tasks_api(request):
                 'task_type': task.task_type,
                 'deadline': task.deadline,
                 'job': task.job_id,
-                'assigned_email': task.assigned_email 
+                'assigned_email': task.assigned_email,
+                'task_status': task.task_status 
             })
         return JsonResponse(data, safe=False)
 
@@ -142,7 +144,8 @@ def tasks_api(request):
             money_for_task=data.get('money_for_task', 0),
             task_type=data.get('task_type', 'SIMPLE'),
             deadline=data.get('deadline'),
-            assigned_email=data.get('assigned_email')
+            assigned_email=data.get('assigned_email'),
+            task_status=data.get('task_status', 'Бошланмади')
         )
 
         return JsonResponse({
@@ -156,7 +159,8 @@ def tasks_api(request):
             'task_type': task.task_type,
             'deadline': task.deadline,
             'job': task.job_id,
-            'assigned_email': task.assigned_email 
+            'assigned_email': task.assigned_email,
+            'task_status': task.task_status  
         })
 
 
@@ -177,7 +181,8 @@ def task_detail_api(request, pk):
             'task_type': task.task_type,
             'deadline': task.deadline,
             'job': task.job_id,
-            'assigned_email': task.assigned_email 
+            'assigned_email': task.assigned_email,
+            'task_status': task.task_status  
         })
 
     elif request.method in ['PUT', 'PATCH']:
@@ -201,6 +206,8 @@ def task_detail_api(request, pk):
             task.deadline = data['deadline']
         if 'assigned_email' in data:
             task.assigned_email = data['assigned_email']
+        if 'task_status' in data:
+            task.task_status = data['task_status']      
 
         task.save()
 
@@ -215,7 +222,8 @@ def task_detail_api(request, pk):
             'task_type': task.task_type,
             'deadline': task.deadline,
             'job': task.job_id,
-            'assigned_email': task.assigned_email 
+            'assigned_email': task.assigned_email,
+            'task_status': task.task_status             
         })
 
     elif request.method == 'DELETE':
