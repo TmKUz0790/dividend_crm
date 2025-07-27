@@ -1,0 +1,1323 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$BcSHCFM6LDJbQnHmnjz5fF$SHXh0JX1CMAoGfH7mnpQKdOfpzyLywsJccSW2TYW0IU=",
+      "last_login": "2025-06-29T12:55:58.291Z",
+      "is_superuser": true,
+      "username": "dbr_admin",
+      "first_name": "",
+      "last_name": "",
+      "email": "Admin@dbr.org",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2024-12-16T07:03:02.906Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$kxMb604seUbY8a1cV7K2JF$Z0UGSJAzKbUQ9Ago2CZe04MyFn2Xq+C+gKnobsSdJ0A=",
+      "last_login": "2025-03-05T07:34:33.383Z",
+      "is_superuser": true,
+      "username": "murodxoja",
+      "first_name": "",
+      "last_name": "",
+      "email": "murodxojakamolxojayev@dbr.org",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-01-12T08:51:37.836Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$KxT4KcEWQ1LARZxUztZwTM$ktLbuxEUVFvh4l8stdf+8Htbz7vtb4lT0IV4N0ewWT8=",
+      "last_login": "2025-02-27T14:24:56.425Z",
+      "is_superuser": true,
+      "username": "abdulloh",
+      "first_name": "",
+      "last_name": "",
+      "email": "Abdullohuchkunov@dbr.org",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-01-12T08:56:57.017Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$GBVJCNmS0grocJfQKmNW58$zGgc7uvPltQnsOcUelf5F6U/a/8+OxeSFZbIg4GOeNc=",
+      "last_login": "2025-02-28T09:59:59.900Z",
+      "is_superuser": true,
+      "username": "Samandar_PM",
+      "first_name": "",
+      "last_name": "",
+      "email": "SamandarRasulov@dbr.org",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-01-12T09:06:40.924Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$I6UFOzsejDZbA5a8CrrOfV$jhfEvM8N0KCmi0QAaXfgpxCBuIWCZvqTJEuaIPyy5Aw=",
+      "last_login": "2025-01-26T15:21:26.272Z",
+      "is_superuser": true,
+      "username": "Sardor_dashboard",
+      "first_name": "",
+      "last_name": "",
+      "email": "Sardor_Mannonov@dbr.org",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-01-12T09:23:06.749Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$C5Gsopok5NNO1mf09p3PWT$jPv3WbTuNHQlUP6SinUZ3hRntGh8lrnZmVLO8iz6VnI=",
+      "last_login": "2025-02-28T10:05:37.381Z",
+      "is_superuser": true,
+      "username": "Asilxoja_PM",
+      "first_name": "",
+      "last_name": "",
+      "email": "Asilxoja_Kamolxojaev@dbr.org",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-01-12T09:39:48.671Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 7,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$CNK3zU0j3UrCiAha9KxiaA$aD6+r2bqOd68G5M+sySdjmveaeuoVsZHLulAnKWm4fo=",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "Dilshod_OP",
+      "first_name": "",
+      "last_name": "",
+      "email": "dilshod@dbr.org",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-01-12T09:41:23.636Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 8,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$s3AubaAPw73uCQjcgpY9hO$DuOEigSkHCz4vPipLcqoFyWpW62LAKh0/S+0JRGiqVE=",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "Muhammadjon_PM",
+      "first_name": "",
+      "last_name": "",
+      "email": "muhammadjon_pm@dbr.org",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-01-26T13:06:42.280Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 9,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$CcUlDwTTZVRxR02qH5gpGH$hpEmeT5sXl0YefI4/H5VzNk5o1JdsSgblMsxQ2kmT4M=",
+      "last_login": "2025-05-09T08:57:21.803Z",
+      "is_superuser": true,
+      "username": "temurmalik",
+      "first_name": "",
+      "last_name": "",
+      "email": "temurmalik@dbr.org",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-01-26T14:28:29.515Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 10,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$gCUPUAGie8nrpNzMNr89Tb$YNs3vDZ7tWjjUfWHOworeNevDWWX8quzil8s1VxFHYA=",
+      "last_login": "2025-05-10T13:33:37.036Z",
+      "is_superuser": true,
+      "username": "abdulaziz_pm",
+      "first_name": "",
+      "last_name": "",
+      "email": "abdulaziz_pm@dbr.org",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-01-27T12:48:07.716Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 11,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$nJCiy6VAhgaVxggZPpkYJ4$phnl/0TfHLyeRIEGpOpMDe4VxKQZQDNNofdbLAKqaOA=",
+      "last_login": "2025-03-02T08:45:55.859Z",
+      "is_superuser": true,
+      "username": "yusuf_pm",
+      "first_name": "",
+      "last_name": "",
+      "email": "yusuf_pm@dbr.org",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-01-27T12:49:52.067Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 12,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$GZv2ZqtoFSY9nvK9LBVjWv$WJzXdH/w0+1PSE0+JKUDLwtvRqIdvZxjMYeleIIWpPo=",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "javohir_pm@dbr.org",
+      "first_name": "",
+      "last_name": "",
+      "email": "rasulov_javohir@dbr.org",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-01-27T12:52:04.734Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 13,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$u1DY4QI9ODHxmSjVUwmtko$QneTCnCJpfDS2yG22fHrytI9c8H6lq9ZEnXHeL1iw/0=",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "tmk",
+      "first_name": "",
+      "last_name": "",
+      "email": "tmk@tmk.uz",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-06-24T13:33:57.954Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 14,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$kQ3qXLDgwlOpLGiF7EvVMJ$AtLdbG5YT+dIxtRvH5t10JxKuShaTRaCMq9mWqfwDsg=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "TmKUz555",
+      "first_name": "tmk",
+      "last_name": "tmk",
+      "email": "tmk@ggg.uz",
+      "is_staff": false,
+      "is_active": false,
+      "date_joined": "2025-06-29T13:55:34.175Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 16,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$Cs10m7lFjWtBJWg0mx3JXc$LUOU/uQD7VkQaP1QxmK8bI1Ib+OY9ePmFaFcvGmvqJk=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "tmk_ali",
+      "first_name": "tmk666",
+      "last_name": "eeer",
+      "email": "tmk_ali@gmail.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-06-29T19:40:17.020Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+
+  {
+    "model": "sessions.session",
+    "pk": "1l56640vr5h9dxoy1dhg55s5lrfs3rui",
+    "fields": {
+      "session_data": ".eJxVjjsOwjAQRO_iGln-xR9Kes5g7a4dkhDZUpxUiLuToBTQjWbejObFImzrELeWlzgmdmWSXX49BHrmcgRpgvKonGpZlxH5gfAzbfxeU55vJ_s3MEAb9rYOZAiFS9RhAADvCBSStWhNUEp7B11wvZBgs_S9CbvUQthgIEFC3EdpHnNZ41Tx-1Tp9wdbHT57:1toKkw:gPQ3gpfoR6ZX_gW4JdYRCRjHOXpMsCSNrJhSOXbJTJ0",
+      "expire_date": "2025-03-15T11:11:42.427Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "2sl9zi3mws3ymr4hju6ojp3fesewhct0",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1te9TI:hVBFzsTspKQwMS90s-TC4MkyJmkCZv-QhZurXzmMwvk",
+      "expire_date": "2025-02-15T09:07:24.352Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "35ou2sqbzgdtoul2f85h1ud69l9w68cc",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQBe_iGlkbx1onlPScwXq7XkgAJVI-VcTdIVIKaN_MvM1lrEuX19mm3Bd3dtGdfjeBPm3YQXlguI9ex2GZevG74g86--tY7HU53L-DDnP3rQNunCANuLFITaiFKqtZQG1K0tYR2jIxohamQEmlAidlQoBZpe79Ad3ZN-Y:1tnx9y:c96_7sZaAJTN3jolGk_Vcn0VWbDlsySHmhDoCZnRWj8",
+      "expire_date": "2025-03-14T09:59:58.622Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "3gn7dyaos53o1tlzub8kv2kl7e8vscu9",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1td4Ze:fOVDdQp7GfsACu4PYWMCcNK1QrmxNDHoi-ck0quVrIw",
+      "expire_date": "2025-02-12T09:41:30.286Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "3iktqldlu4kbkqnp9jdczw24o7d3w3ds",
+    "fields": {
+      "session_data": ".eJxVjMsOgyAURP-FdUMQkEeX3fcbyL0XrFoDieCq6b9XGzfuJmfOzIfRMqXcwlwwTJHdpbqxAFsbw1bT-kesYxeGQO-UjyLOkF-FU8ltnZAfCj_byp8lpuVxupeDEeq4r5UnTShspB49ADhLIJGMQaO9lMpZ6L0dRAcmdW7Qfo9KCOM1RIiI7PsDczc-ew:1tmTky:x-Nis10IlilKf-K4ny1JvmCf3DLSp91QY2yZITUvBXo",
+      "expire_date": "2025-03-10T08:24:04.813Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "3odq90zv3pj1mjuds5opwtjzf7iw51r2",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1to6m4:p_IrVbGkVbLMjgO62nVJTg_im8D6baEGo0pVTfe4lfg",
+      "expire_date": "2025-03-14T20:15:56.716Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "3pwssq0inoqolnidels7ks4uqyxvy23v",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1tVoKD:73ryiOLS7GAi9_wYsJ_X18bGocLb76ywgSDHh8nNLRA",
+      "expire_date": "2025-01-23T08:55:33.365Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "4fhndv00r24wf0op4lpco2k96dc4fcnu",
+    "fields": {
+      "session_data": ".eJxVjjsOwjAQRO_iGln-xR9Kes5g7a4dkhDZUpxUiLuToBTQjWbejObFImzrELeWlzgmdmWSXX49BHrmcgRpgvKonGpZlxH5gfAzbfxeU55vJ_s3MEAb9rYOZAiFS9RhAADvCBSStWhNUEp7B11wvZBgs_S9CbvUQthgIEFC3EdpHnNZ41Tx-1Tp9wdbHT57:1tztIX:pws4iRggBLrfL7raz8DkxaO67w8dOdGNOFy-9wgPzuM",
+      "expire_date": "2025-04-16T08:18:09.137Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "4j07a78h9kiferz8l2u309uuab0v5ki8",
+    "fields": {
+      "session_data": ".eJxVjMsOwiAQRf-FtSEdHgO4dN9vIAODUjU0Ke3K-O_apAvd3nPOfYlI21rj1ssSJxZnAYM4_Y6J8qO0nfCd2m2WeW7rMiW5K_KgXY4zl-flcP8OKvX6rRP4DIEIrUFItjjjbNDKKdScgRFZIzNcCzsk4w1SBuXR6YGyCymJ9wfvxTeo:1tf0ok:566SYHFP6oGeKEdJWmzlcVraqIUQvldqfihx1y_VSws",
+      "expire_date": "2025-02-17T18:05:06.771Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "54khr1nhpe9z4g1u32jv6px75d6lu5sx",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1tpHiA:HHQ09tixrzz-Zo1kXAFnL4MW0YfTN2xjw8CLKRs9LDg",
+      "expire_date": "2025-03-18T02:08:46.504Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "5a63tglcrtkvrwcfpmtfmszbh479qm29",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1uKdwH:aQvtX6lpEATLht1xRDL8m5vTE7rxbzDv2ns8D4rdbE0",
+      "expire_date": "2025-06-12T14:08:57.584Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "5q9g0yy00fo3f8jd8pxxzx1g6ub6nuq0",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1tiqJc:3sd8S5sjMKLpIrV_Rphd0bh4am34pQVsM5zdWeIMqro",
+      "expire_date": "2025-02-28T07:40:48.511Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "6153mknc5dng5cnwdw8iy558aa5vm4ec",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1uA566:NvpCQsboJrrcxz7L2v-z8ecmvrouUFfYX_aF3rER05s",
+      "expire_date": "2025-05-14T10:55:26.236Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "61shz5c1b7xj9uo9nl88ab22c4ya3yf7",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1tVVl7:447r5Cf_Ed9M8YvxIvR7k14gyKBC6Sr5Vm-V5IxfYoA",
+      "expire_date": "2025-01-22T13:06:05.303Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "6mtctz6t3hkkhgnwtncfdyiov5roiwmh",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1uDkLc:-RLPESuB4cF_EHa8sTX42N3ALSIbkiiNMiUPTNBOgVg",
+      "expire_date": "2025-05-24T13:34:36.555Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "6prdz5eda3bblftmxajaarfavt3a1yhi",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1tW8Xv:cryI1Z3tnaG3abGzYll3kYOIz38NSQd_q2LameBOVyM",
+      "expire_date": "2025-01-24T06:31:03.865Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "7lth5h1nc5dtwoynum57otmh40n291tk",
+    "fields": {
+      "session_data": ".eJxVjEEOgjAQRe_StWmmlCnUpXvP0Mx0BosaSCisjHdXEha6_e-9_zKJtrWkreqSRjFnE8zpd2PKD512IHeabrPN87QuI9tdsQet9jqLPi-H-3dQqJZvPeAQWhB0ACre50jMQDkGztpDZIetYh_Rhw7Vex8BG3GEGRphgc68P-V5N5U:1tciWS:DC6AWF9EbYmEuaezCK5ntPoM47V0qyCNkvHalHKTRQs",
+      "expire_date": "2025-02-11T10:08:44.366Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "80y35041yiry0848qc6v6jfnv2xyrmj9",
+    "fields": {
+      "session_data": ".eJxVjjsOwjAQRO_iGln-xR9Kes5g7a4dkhDZUpxUiLuToBTQjWbejObFImzrELeWlzgmdmWSXX49BHrmcgRpgvKonGpZlxH5gfAzbfxeU55vJ_s3MEAb9rYOZAiFS9RhAADvCBSStWhNUEp7B11wvZBgs_S9CbvUQthgIEFC3EdpHnNZ41Tx-1Tp9wdbHT57:1tjAv2:J4BexL89Rrm-E-eN0GyxYIXUrRSJJ64IGEEpXytT50E",
+      "expire_date": "2025-03-01T05:40:48.488Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "82z4va4cfot8ocm68h4k7i5wufewd3b9",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1u0FXA:Wvgm9DuguV6MrGJgDUqdUNm1cUTEvky_E7F64qmEnYI",
+      "expire_date": "2025-04-17T08:02:44.540Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "865fm84uqvag3nw9ujmn4fvfvoy88654",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1ttLnU:BNcCHVLouTFtL-sO1UBZ1yqWq2jPkr8mNAzooMBBVC4",
+      "expire_date": "2025-03-29T07:19:04.417Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "8tfxz57ex1r82n4qp9pyn1e4c7vcmgjo",
+    "fields": {
+      "session_data": ".eJxVjMsOwiAQAP-FsyE8KiwevfcbyLKLUjWQlPZk_HdD0oNeZybzFhH3rcS95zUuLC4iiNMvS0jPXIfgB9Z7k9Tqti5JjkQetsu5cX5dj_ZvULCXsVUUELyCHBAn528mWQ8emACISNuJ0JhkNGpnvFXBMpMBRT5McGYnPl_b3jdW:1tkiuk:Tz-GOtEYaSIG74SEb0cpxai_dMgxuBkEgHZYatxpouI",
+      "expire_date": "2025-03-05T12:10:54.726Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "a6zhx6yc04bm2uqnh9ceyjz15m0um7pl",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1uNpgs:-s6pLhOetSGu2lJJ2V-cJRzulF8_bYTbmgzVKH361Mc",
+      "expire_date": "2025-06-21T09:18:14.554Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "aq491oq9nyt8xzh57386arkypfy5qzwb",
+    "fields": {
+      "session_data": ".eJxVjMsOwiAQAP-FsyE8KiwevfcbyLKLUjWQlPZk_HdD0oNeZybzFhH3rcS95zUuLC4iiNMvS0jPXIfgB9Z7k9Tqti5JjkQetsu5cX5dj_ZvULCXsVUUELyCHBAn528mWQ8emACISNuJ0JhkNGpnvFXBMpMBRT5McGYnPl_b3jdW:1thmZO:olhtl0YiDFY00QaUuB-bsN-pNhJ5j2iY_b0pvoVLunc",
+      "expire_date": "2025-02-25T09:28:42.346Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "b39p9zytsr6hg2mvh96fehbwjpyj9crw",
+    "fields": {
+      "session_data": ".eJxVjDkOwjAUBe_iGllePrZDSc8ZrL8YHECOFCcV4u4QKQW0b2beS2Vcl5rXXuY8ijoppw6_GyE_StuA3LHdJs1TW-aR9KbonXZ9maQ8z7v7d1Cx128N7AiRGIg8i03J8mAFjmEQZogWxFhPEUosJnjnDKV4BSdUGCUQqvcH_YY4ow:1tduSn:GH9-eVNF8HQ7tSu6WTMz2nYynHV6F8jIqY7B5uuZ_UY",
+      "expire_date": "2025-02-14T17:05:53.318Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "b6xhco7tbc9titvo1q30oxyzopq4eua1",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1uO43E:5EqrHmdusffmafaSdo8-UxTX3UfDRtghmgTxVt06Z04",
+      "expire_date": "2025-06-22T00:38:16.124Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "bvdg0zvzei3e41yu05qurpmmf7zlybq2",
+    "fields": {
+      "session_data": ".eJxVjMsOwiAQRf-FtSGU97h07zeQYQCpGkhKuzL-uzbpQrf3nHNfLOC21rCNvIQ5sTMz7PS7RaRHbjtId2y3zqm3dZkj3xV-0MGvPeXn5XD_DiqO-q1Jk4ygJGogm2xRJhYHk3bRZBIuCY8kUepstRQGnPAgoFgLcfKYlGbvD-CxN1E:1tc4Ry:BDgfXmf9a5Pz_hSY9waXCBURIBIX6opEN-jQpf37EkI",
+      "expire_date": "2025-02-09T15:21:26.359Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "cbcjnm2wv3k3l1qtw5wd8mbtwjaelx8h",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1u5MGW:NUjO-F1T3LcCNkYlH3wXgYIrhDe3i9vqKKQHRfviK1k",
+      "expire_date": "2025-05-01T10:14:40.781Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "cl0ie9wno8c3o0h1u2lv4pzhpbmxshym",
+    "fields": {
+      "session_data": ".eJxVjr0OwyAQg9-FuUJACD8du_cZ0N1BStIIpJBMVd-9SZWh3Sz7s-UXC7CtOWwtLWGM7Moku_x6CPRM5QjiBOVROdWyLiPyA-Fn2vi9xjTfTvZvIEPLe7vzpAmFjdSjBwBnCRSSMWi0V6pzFnpvByHBJOkG7XfZCWG8hggRcR-leUxlDVPF71Op3h9bGD55:1tsK9X:S0HuE0bwLSwCno5-k-lJ7jpw6E-5JsC2VgrsEu_Mvxc",
+      "expire_date": "2025-03-26T11:21:35.192Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "d9jkujisgpgktzrhh46ceuuk13sd879s",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1uO0at:pNVORmRjKCZA61LICtSAAwjXaLaJRm2WxBZRFuuqAQU",
+      "expire_date": "2025-06-21T20:56:47.888Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "dh5nqk1hpzvyekbn5ysqckasq5x05v8a",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1tN5GY:F81Jev-HwD7RqIMuOnidafvFHjeuj_wnIdpmZ98uO6M",
+      "expire_date": "2024-12-30T07:11:42.663Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "duyq9lzukd21lqq91xms6poz8m1jje1w",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1u4wGB:G8p0gZANJzgjqAiBtrkhtPd7iC3uZhtP7IsFSVLvrHQ",
+      "expire_date": "2025-04-30T06:28:35.882Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "e5fil9r62eelv6kalb6rmzuclgw829ju",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQBe_iGlne-AslPWew1t41DqBYipMKcXcSKQW0b-bNW0RclxrXznMcSVwEgDj9jgnzk6ed0AOne5O5Tcs8Jrkr8qBd3hrx63q4f4GKvW7vYtgVoqJwUIDeMw-eBs5BwRbRWROf0TkDyjMFi2yNZgPWUrKQOIjPFzJhOOU:1tob2x:pbJtcR78elqtxUQNH9fdTfg_7pxzhq7TVxyY3sT0kTA",
+      "expire_date": "2025-03-16T04:35:23.138Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "ep3qoaiyw6yfkz1r208boma3sva9rb50",
+    "fields": {
+      "session_data": ".eJxVjMsOwiAQAP-FsyE8KiwevfcbyLKLUjWQlPZk_HdD0oNeZybzFhH3rcS95zUuLC4iiNMvS0jPXIfgB9Z7k9Tqti5JjkQetsu5cX5dj_ZvULCXsVUUELyCHBAn528mWQ8emACISNuJ0JhkNGpnvFXBMpMBRT5McGYnPl_b3jdW:1trgqD:R9Q3TOC-dNWQAEh7VSxgKSTgqDgwXzeNvfxtykLa6Po",
+      "expire_date": "2025-03-24T17:23:01.935Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "ex31uta6b4ua2nfpiy8ee2apqmatjzah",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1tfBYu:_sr__JxU819Akc8XfWmBeRQTMkh2qMvD3AHsUGgARnw",
+      "expire_date": "2025-02-18T05:33:28.364Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "f7ynatnt8i680zx0igd5bg4oceigjzzx",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1uKLrF:BouDlmaGn_XFhYGK13rNXIVTQIEQDiT1Wobu6GoYqvA",
+      "expire_date": "2025-06-11T18:50:33.242Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "f98d4bg59vn8mncxvtethrnm4xiv002l",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1tYirc:gGQ_Gh3Onz9t85ksdhcmESglbsARlZO15Yzz_DO7DBY",
+      "expire_date": "2025-01-31T09:42:04.377Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "fs9y6xjleqde6kq679xdz4bhbzgbzb22",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1uKtne:CjSvnxq0LadpOg-Q61Fjpc5sDDenAH23v62ZEVYlGNs",
+      "expire_date": "2025-06-13T07:05:06.290Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "fyq4gd3uuechj8952errorvtys5acilw",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1u0Exv:67gDKyp69OuARQlGrwu_DunapcNtxTlsl6Wv5NuEc-k",
+      "expire_date": "2025-04-17T07:26:19.578Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "g3fjo0dvjrivxvrk85w29zfovf1rle29",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1tmeG9:v5y0uqrN2LOdLcKzqLrGo4f8BpCUU1lgcVfu-lgnaWk",
+      "expire_date": "2025-03-10T19:36:57.671Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "j4scl2bxkksjqvvrrchftkpr3u799wp0",
+    "fields": {
+      "session_data": ".eJxVjjEOwyAUQ-_CXCECBELH7j0D-v9DGtIIpECmqndvUmVoN8t-tvxiHrY2-a3G1afArqxjl18PgZ4xH0GYIT8Kp5LbmpAfCD_Tyu8lxOV2sn8DE9RpbytHmlDYQD06ABgsgUQyBo12UqrBQu_sKDowsRtG7XaphDBOQ4CAuI_SkmJufi74fSrl-wNbGz56:1tZnfb:qwkre1QBiMujtc2xuVxQfH2RJUE0QdxkBpdABdYPzCo",
+      "expire_date": "2025-02-03T09:02:07.611Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "jno5pkvf05t9iu8jpygyugund685wiyc",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1tdX8F:IyEz-2fr1_QPk2FDCO2G6TOMvwdrlDDIpYT8viGIOb4",
+      "expire_date": "2025-02-13T16:11:07.931Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "kg1eqgtja9m9f8n8ct0z7rj53cy182nh",
+    "fields": {
+      "session_data": "eyJjbGllbnRfam9iX2lkIjoyMn0:1tZBYm:RwdylCfF5p9JL2MaopT-iMKjW-BI8vMpetheJfwbVAw",
+      "expire_date": "2025-02-01T16:20:32.827Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "l5svu93hlqibjjrb8ijuvnleat7ftz9s",
+    "fields": {
+      "session_data": ".eJxVjr0OwyAQg9-FuUJACD8du_cZ0N1BStIIpJBMVd-9SZWh3Sz7s-UXC7CtOWwtLWGM7Moku_x6CPRM5QjiBOVROdWyLiPyA-Fn2vi9xjTfTvZvIEPLe7vzpAmFjdSjBwBnCRSSMWi0V6pzFnpvByHBJOkG7XfZCWG8hggRcR-leUxlDVPF71Pl3h9bJz6A:1tfe0K:dkeX2Xzk5vq9K-mjS3MswzpkZtFNbZgACrwC-tKz7Fs",
+      "expire_date": "2025-02-19T11:55:40.460Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "ld1a9voljitvct93o02qvs8w43ehyat0",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1uKYpe:lGSjABOKqA9bkD9BWrl_T4m81omm5M3RcxgX63_SMXQ",
+      "expire_date": "2025-06-12T08:41:46.932Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "lkcd1qz58htw6e4h98kvh75g54emyiym",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1u4zfE:7hibvN8Nm_0OZlE3Pg3Aa73eEMvpeWmMClVegcQKPlY",
+      "expire_date": "2025-04-30T10:06:40.526Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "lw73s696ndpzteuc8klp1ew0unj5y70r",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1uKiB2:rwwVPXw9AAf2lJ35-svX7rugcrpkSOsB8R8IQ2meCks",
+      "expire_date": "2025-06-12T18:40:28.303Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "lzizzgkgjt2mlecvi4960lllgmkql57i",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1tztex:ReGwPBOBZa37C73SIIV0EZ2xgIrYemXSObx9gUU77KE",
+      "expire_date": "2025-04-16T08:41:19.396Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "mblegba812vjkkb1lvm9nv9gg2ruipxp",
+    "fields": {
+      "session_data": ".eJxVjMsOwiAQAP-FsyE8KiwevfcbyLKLUjWQlPZk_HdD0oNeZybzFhH3rcS95zUuLC4iiNMvS0jPXIfgB9Z7k9Tqti5JjkQetsu5cX5dj_ZvULCXsVUUELyCHBAn528mWQ8emACISNuJ0JhkNGpnvFXBMpMBRT5McGYnPl_b3jdW:1toK1a:btJBx1qS6XM81egGFoCfZ00ogmQjciaWEXemzFp_8Ck",
+      "expire_date": "2025-03-15T10:24:50.059Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "mz997isbaobei3qnl1gj57mgagsc9ia4",
+    "fields": {
+      "session_data": ".eJxVjjEOwyAUQ-_CXCECBELH7j0D-v9DGtIIpECmqndvUmVoN8t-tvxiHrY2-a3G1afArqxjl18PgZ4xH0GYIT8Kp5LbmpAfCD_Tyu8lxOV2sn8DE9RpbytHmlDYQD06ABgsgUQyBo12UqrBQu_sKDowsRtG7XaphDBOQ4CAuI_SkmJufi74fSrl-wNbGz56:1taDJa:GNHpaBLHcUk-Pcezlm5wRW2ZraYVZn3JiZd2g2EWfGM",
+      "expire_date": "2025-02-04T12:25:06.772Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "na9zinp7mx6syfb482h0uirhtbjbe9qx",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1uN5K6:lkRu27zL6tAAeN6kFklAjLLs2GCQRATE5putBKKiDAg",
+      "expire_date": "2025-06-19T07:47:38.661Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "nmcf9f5mu0da91s3fq4mi440ablrck9s",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1u5LCL:5vnySyxLloPnK3nmAc3YHiZEmkuprqNV1eqVkxo-2W0",
+      "expire_date": "2025-05-01T09:06:17.299Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "nqx83o2tegfv2jcux4mb4sp3m0mqfdsc",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1tvsuw:BJ0fnA7KJL9-Ac34tMt76K2Qi0mAaFNJR4VaVCOt374",
+      "expire_date": "2025-04-05T07:05:14.958Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "nx3me5o1lqbt6tm2xkg7hgfhczs07uyv",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1uKtjb:5zwDAUwXux8qdecMZW41fQYXn2orMZL5OE75NiLmnGY",
+      "expire_date": "2025-06-13T07:00:55.707Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "o0szqyylliybwyw3r4ypfjfi8x67frge",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1uImA7:ydvGAYNXCTxTZfmIZXR6Z8e5I_tyPLyATfX3M3pVrco",
+      "expire_date": "2025-06-07T10:31:31.741Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "obyd4i4gid6agft0fhiz3rpal43bpfg9",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1tVo6m:sTpENk4oISYD8skFMqNFJFs1T3mulglFrWZtFwPwwV4",
+      "expire_date": "2025-01-23T08:41:40.704Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "oo9o8wgzmawq5deqbsjjoa2a7qkn90ly",
+    "fields": {
+      "session_data": ".eJxVjjsOwyAQRO9CHSEwmE_K9DkD2l1wsGOB5E8V5e7BkYukG828Gc2LBdi3HPY1LWGM7Moku_x6CPRM5QjiBOVROdWyLSPyA-FnuvJ7jWm-nezfQIY1t7bypAmFjdSjBwBnCTokY9Bo33XKWei9HYQEk6QbtG9SCWG8hggRsY3SPKayhani96l6fwAc7j5J:1tNvGT:Xgls3gHG33ALFoYHEurnjY7LMQm0-jObB_OEgMq0VzM",
+      "expire_date": "2025-01-01T14:43:05.156Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "ph4hid0bmn6ubwfddbvih4jrvnw4y9ba",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1tNv76:c4x-OeWk2yEvAb17urW4mNLjg27uzkHPgRuFvyHWXno",
+      "expire_date": "2025-01-01T14:33:24.456Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "pyk582tse3gmprkzmt5ct620oihu7qim",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1uVrZe:TvSXIUtCiHoI30OSR2tqnMuh-7usUS9KOemfXKumsmo",
+      "expire_date": "2025-07-13T12:55:58.529Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "q2tslsftjmm7zjs8ld6kugackmxqc6ta",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1u0QAj:m6OyalOlC0-U3zA7d4RrJITzbeblhqkUQ5qfDuYNHVM",
+      "expire_date": "2025-04-17T19:24:17.235Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "q6873isi22dhnakkt10m4rbkzj6nnki7",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1ttAXZ:HpGEDGfeN72eZ11IVNU1VTWybYtrm598vnvBorjjOKc",
+      "expire_date": "2025-03-28T19:17:53.763Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "qia7oq15szvlbbrs97d0i1txgmd95s3f",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1tztew:U_V50FPCe9W3m2_jK9NVwBe1Lp9GZ-7wfLsM8YIbIRI",
+      "expire_date": "2025-04-16T08:41:18.318Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "shfg96peaed0u8qrahti7v0rqymbft23",
+    "fields": {
+      "session_data": ".eJxVjEEOwiAQAP_C2RDoLq149O4byMIuUjUlKe3J-HdD0oNeZybzVoH2rYS9yRpmVhcF6vTLIqWnLF3wg5Z71aku2zpH3RN92KZvleV1Pdq_QaFW-jYzCmJyAJHN2Y5ZjEGQbBN5ZMzW0uA8eMdTjIyGZITBujhlyuJBfb7pKjgm:1tneoq:j_LvbjPWeJFikvV_WWtnws-Tav0qWhHxYfk5mJ8UOHY",
+      "expire_date": "2025-03-13T14:24:56.567Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "stxfzzjioohwz7mx94j4einqktcp3wht",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1tt9rJ:KhYKR57TP-v48e-g__15Hzf2jdy7CjOTSxps-hStlTk",
+      "expire_date": "2025-03-28T18:34:13.477Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "t07l8xtra4eo7zuebxf3cnme3e1nhsmd",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1uVSop:sLhxoYAPQTsWB7hPR7WrtYZQKf239u7Xn4sTgdCOvnI",
+      "expire_date": "2025-07-12T10:29:59.700Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "t6dljqi88a9jnn076ln4jgzj1rzmye5u",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1ttlQi:a0HsLwzN44KDs4PHKMjEtqc-VBPCMB6MRc5xQEVTXIo",
+      "expire_date": "2025-03-30T10:41:16.251Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "trk4sf7vomchhpho6h4pcarummp4q2et",
+    "fields": {
+      "session_data": ".eJxVjjsOwjAQRO_iGln-xR9Kes5g7a4dkhDZUpxUiLuToBTQjWbejObFImzrELeWlzgmdmWSXX49BHrmcgRpgvKonGpZlxH5gfAzbfxeU55vJ_s3MEAb9rYOZAiFS9RhAADvCBSStWhNUEp7B11wvZBgs_S9CbvUQthgIEFC3EdpHnNZ41Tx-1Tp9wdbHT57:1tsuIM:LJECvhl5ia5ugL61xMJSLMjG-9AKsDkKD29qqlGziWg",
+      "expire_date": "2025-03-28T01:57:06.488Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "v6qmqedozl3kagfgwek7waf0mtaebocq",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1tN9Oe:XrGDiNWSUJ3YEXIwINMz3ZlvDQJEAy_Czphq97BPT2Y",
+      "expire_date": "2024-12-30T11:36:20.924Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "vgm0mtstpkxonqd2pevkhzi6cwlbxu7l",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1te9XE:EnuIBGGll397yWWRAR453lYCTsnutRbYBbRhBvzo5zM",
+      "expire_date": "2025-02-15T09:11:28.736Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "vkiaco8uyv2a7xxd71zwu6on1bravx11",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1tWtFe:1sld9jZaKZWfc3ROrIqK88FYDYOz_ptWMr8px4Tak1A",
+      "expire_date": "2025-01-26T08:23:18.161Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "vpn3u8r6nfge3ja654zrw3hagh3e34nt",
+    "fields": {
+      "session_data": ".eJxVjEEOwiAQAP_C2RDoLq149O4byMIuUjUlKe3J-HdD0oNeZybzVoH2rYS9yRpmVhcF6vTLIqWnLF3wg5Z71aku2zpH3RN92KZvleV1Pdq_QaFW-jYzCmJyAJHN2Y5ZjEGQbBN5ZMzW0uA8eMdTjIyGZITBujhlyuJBfb7pKjgm:1tfDVU:P3dnuItza6o4kFa17Jvwlk60ns2hiHF2sQAdFrgUM1E",
+      "expire_date": "2025-02-18T07:38:04.238Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "vx82ymb96inip4bc1wt627no988m616n",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1tV9SH:cYTEDKb4wrFMjuspTedwUNjcAG9ISztVsOrr1vzdIQA",
+      "expire_date": "2025-01-21T13:17:09.567Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "wsn2x1gsxrh5z8n6idb7cf281vpfyyy0",
+    "fields": {
+      "session_data": ".eJxVjr0OwyAQg9-FuUKEEH46du8zoLuDlKQRSIFMVd-9SZWh3Sz7s-UX87C15LcaVz8FdmUdu_x6CPSM-QjCDPlROJXc1gn5gfAzrfxeQlxuJ_s3kKCmvd07UoTCBBrQAYA1BBJJa9TKSdlbA4Mzo-hAx86Oyu2yF0I7BQEC4j5KyxRz83PB71Nl3x9bLT6C:1u0QkV:uCo9SELfrMpDgXGoCLxK7xzmt1gDmURXqYI8Bo4aSBU",
+      "expire_date": "2025-04-17T20:01:15.499Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "wu95jx5w58dahemlj6ksjxp0luzacndc",
+    "fields": {
+      "session_data": ".eJxVjjEOwyAUQ-_CXCEgBELH7j0D-v9DStIIpECmqndvUmVoN8t-tvxiHraW_Fbj6qfArkyyy6-HQM-YjyDMkB-FU8ltnZAfCD_Tyu8lxOV2sn8DCWra250jTShsoB4dAAyWQCEZg0Y7pbrBQu_sKCSYKIdRu112QhinIUBA3EdpmWJufi74fSrfHxzqPkc:1tNqeC:2XsTtpNWeLAjwm6-vYn0hxRS_ilI-rt0VDCzhKzM_t8",
+      "expire_date": "2025-01-01T09:47:16.680Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "x5gmtz3mmwdm2kg5lzwh0fe4ea7ksx0k",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1uENiJ:dRRHTkxnhPSkgWwfOIbqQ1V22L0offEgZspM15lvT4s",
+      "expire_date": "2025-05-26T07:36:39.168Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "xxjva881hej97uirb4pvp5vemoahtu2g",
+    "fields": {
+      "session_data": ".eJxVjDkOwjAUBe_iGllePrZDSc8ZrL8YHECOFCcV4u4QKQW0b2beS2Vcl5rXXuY8ijoppw6_GyE_StuA3LHdJs1TW-aR9KbonXZ9maQ8z7v7d1Cx128N7AiRGIg8i03J8mAFjmEQZogWxFhPEUosJnjnDKV4BSdUGCUQqvcH_YY4ow:1tduST:OqZUKY1864GD8em2I8lgTh66nrxtDX1dLt1kNL0nlHE",
+      "expire_date": "2025-02-14T17:05:33.396Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "ydhjtwrt7zljycfzxtx7q0vtehv7i54b",
+    "fields": {
+      "session_data": ".eJxVjDkOwjAUBe_iGllePrZDSc8ZrL8YHECOFCcV4u4QKQW0b2beS2Vcl5rXXuY8ijoppw6_GyE_StuA3LHdJs1TW-aR9KbonXZ9maQ8z7v7d1Cx128N7AiRGIg8i03J8mAFjmEQZogWxFhPEUosJnjnDKV4BSdUGCUQqvcH_YY4ow:1tduSk:M0N3QRlHdbtWk2olbbPkpMa8Ohtvg63NLg1FwfdAQuY",
+      "expire_date": "2025-02-14T17:05:50.589Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "yqti6khi1xv3gmivat6kco95hohbzs4v",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQRO_iGln-xR9K-pzB2l07OIBsKU4qxN1JpBTQjea9mTeLsK0lbj0vcU7syiS7_HYI9Mz1AOkB9d44tbouM_JD4SftfGwpv26n-3dQoJd9rQMZQuESDRgAwDsChWQtWhOU0t7BENwkJNgs_WTCHrUQNhhIkBDZ5wvxMjgn:1tWqk8:P2OqCLjjMmaiMJEN5FcbNiWdqRLx9RJbaMnfxbHeRB0",
+      "expire_date": "2025-01-26T05:42:36.808Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "zo475hvk9mr7zf4lav20r5fvjwv6jd4z",
+    "fields": {
+      "session_data": "eyJjbGllbnRfam9iX2lkIjozfQ:1tNvn5:5aj6cwhYMzY0VCzvZxzkZRuNjWAh34mszHdrlOPVozA",
+      "expire_date": "2025-01-01T15:16:47.035Z"
+    }
+  },
+
+  {
+    "model": "fin_app_v2.job",
+    "pk": 89,
+    "fields": {
+      "title": "Uzpolytex",
+      "client_email": "uzpolitex@gmail.com",
+      "client_password": "",
+      "over_all_income": 0,
+      "created_at": "2025-07-03T10:33:43.742Z"
+    }
+  },
+  {
+    "model": "fin_app_v2.job",
+    "pk": 90,
+    "fields": {
+      "title": "Armada",
+      "client_email": "armada@gmail.com",
+      "client_password": "",
+      "over_all_income": 0,
+      "created_at": "2025-07-04T14:43:00.456Z"
+    }
+  },
+  {
+    "model": "fin_app_v2.job",
+    "pk": 91,
+    "fields": {
+      "title": "Margarin",
+      "client_email": "margarin@gmail.com",
+      "client_password": "",
+      "over_all_income": 0,
+      "created_at": "2025-07-08T09:50:03.045Z"
+    }
+  },
+  {
+    "model": "fin_app_v2.job",
+    "pk": 92,
+    "fields": {
+      "title": "Led Master",
+      "client_email": "ledmaster@gmail.com",
+      "client_password": "",
+      "over_all_income": 0,
+      "created_at": "2025-07-08T09:50:32.380Z"
+    }
+  },
+  {
+    "model": "fin_app_v2.job",
+    "pk": 93,
+    "fields": {
+      "title": "Jazira",
+      "client_email": "jazira@gmail.com",
+      "client_password": "",
+      "over_all_income": 0,
+      "created_at": "2025-07-08T09:50:54.014Z"
+    }
+  },
+  {
+    "model": "fin_app_v2.job",
+    "pk": 94,
+    "fields": {
+      "title": "Get Green Energy",
+      "client_email": "greenenergy@gmail.com",
+      "client_password": "",
+      "over_all_income": 0,
+      "created_at": "2025-07-08T09:51:28.982Z"
+    }
+  },
+  {
+    "model": "fin_app_v2.job",
+    "pk": 95,
+    "fields": {
+      "title": "Brrauf",
+      "client_email": "brrauf@gmail.com",
+      "client_password": "",
+      "over_all_income": 0,
+      "created_at": "2025-07-08T09:51:50.858Z"
+    }
+  },
+  {
+    "model": "fin_app_v2.job",
+    "pk": 96,
+    "fields": {
+      "title": "Hoffmann",
+      "client_email": "hoffmann@gmail.com",
+      "client_password": "",
+      "over_all_income": 0,
+      "created_at": "2025-07-08T09:52:08.575Z"
+    }
+  },
+  {
+    "model": "fin_app_v2.job",
+    "pk": 97,
+    "fields": {
+      "title": "Lazzat",
+      "client_email": "lazzat@gmail.com",
+      "client_password": "",
+      "over_all_income": 0,
+      "created_at": "2025-07-08T09:52:26.724Z"
+    }
+  },
+  {
+    "model": "fin_app_v2.job",
+    "pk": 98,
+    "fields": {
+      "title": "Roma Pizza",
+      "client_email": "romapizza@gmail.com",
+      "client_password": "",
+      "over_all_income": 0,
+      "created_at": "2025-07-08T09:52:40.385Z"
+    }
+  },
+
+  {
+    "model": "fin_app_v2.task",
+    "pk": 1612,
+    "fields": {
+      "job": 90,
+      "title": "Баланс тогирлаш",
+      "hours": 7,
+      "description": "Баланс хисоботини янги бошкарув хисобига улаш",
+      "task_percentage": 0,
+      "progress": 0,
+      "start_date": "2025-07-04",
+      "deadline": "2025-07-04",
+      "feedback": null,
+      "money_for_task": 0,
+      "paid": false,
+      "assigned_email": "murodxojakamolxojayev@dbr.org",
+      "task_type": "Подписка",
+      "confirmed": false,
+      "confirmation_date": null,
+      "confirmed_by": null,
+      "assigned_users": []
+    }
+  },
+  {
+    "model": "fin_app_v2.task",
+    "pk": 1615,
+    "fields": {
+      "job": 89,
+      "title": "Дашбоард учун база данных ясаш",
+      "hours": 1,
+      "description": "Дашбоард учун Сотув, Таминот, Контрагентлар, Омбор, Касса учун база данных шакиллантириш.",
+      "task_percentage": 0,
+      "progress": 0,
+      "start_date": "2025-07-04",
+      "deadline": "2025-07-06",
+      "feedback": null,
+      "money_for_task": 0,
+      "paid": false,
+      "assigned_email": "murodxojakamolxojayev@dbr.org",
+      "task_type": "SIMPLE",
+      "confirmed": false,
+      "confirmation_date": null,
+      "confirmed_by": null,
+      "assigned_users": []
+    }
+  },
+  {
+    "model": "fin_app_v2.task",
+    "pk": 1616,
+    "fields": {
+      "job": 89,
+      "title": "Дашборд ясаш",
+      "hours": 1,
+      "description": " Сотув, Таминот, Контрагентлар, Омбор, Касса, Ишлаб чиқариш учун Дашбоард ясаш .",
+      "task_percentage": 0,
+      "progress": 0,
+      "start_date": "2025-07-04",
+      "deadline": "2025-07-14",
+      "feedback": null,
+      "money_for_task": 0,
+      "paid": false,
+      "assigned_email": "Sardor_Mannonov@dbr.org",
+      "task_type": "SIMPLE",
+      "confirmed": false,
+      "confirmation_date": null,
+      "confirmed_by": null,
+      "assigned_users": []
+    }
+  },
+  {
+    "model": "fin_app_v2.task",
+    "pk": 1617,
+    "fields": {
+      "job": 89,
+      "title": "Ишлаб чиқариш хужжатларини такомиллаштириш",
+      "hours": 1,
+      "description": "Ишлаб чиқариш хужжатларига хар бир ишлаб чиқарилган махсулотни кг. ни метрга болиб махсулотларни грамини шакиллантириш. Бир ойлик ишлаб чиқарилган махсулотларни анализ қилиб ортача оғирлик нормаларини шакиллантириш ва шу асосида нормаларни анализ яратиш",
+      "task_percentage": 0,
+      "progress": 0,
+      "start_date": "2025-07-04",
+      "deadline": "2025-07-09",
+      "feedback": null,
+      "money_for_task": 0,
+      "paid": false,
+      "assigned_email": "murodxojakamolxojayev@dbr.org",
+      "task_type": "SIMPLE",
+      "confirmed": false,
+      "confirmation_date": null,
+      "confirmed_by": null,
+      "assigned_users": []
+    }
+  },
+  {
+    "model": "fin_app_v2.task",
+    "pk": 1618,
+    "fields": {
+      "job": 93,
+      "title": "Upravlenchskiy uchyot",
+      "hours": 1,
+      "description": "Google sheetsda upravlenchiskiy uchyot tayyorlash kerak",
+      "task_percentage": 0,
+      "progress": 0,
+      "start_date": "2025-07-11",
+      "deadline": "2025-07-17",
+      "feedback": null,
+      "money_for_task": 0,
+      "paid": false,
+      "assigned_email": "Abdullohuchkunov@dbr.org",
+      "task_type": "SIMPLE",
+      "confirmed": false,
+      "confirmation_date": null,
+      "confirmed_by": null,
+      "assigned_users": []
+    }
+  },
+  {
+    "model": "fin_app_v2.task",
+    "pk": 1619,
+    "fields": {
+      "job": 93,
+      "title": "Hayfood otchyotini chiqarish",
+      "hours": 1,
+      "description": "Hayfoodni 9 kunlik otchyotini chiqarish kerak",
+      "task_percentage": 0,
+      "progress": 0,
+      "start_date": "2025-07-11",
+      "deadline": "2025-07-17",
+      "feedback": null,
+      "money_for_task": 0,
+      "paid": false,
+      "assigned_email": "SamandarRasulov@dbr.org",
+      "task_type": "SIMPLE",
+      "confirmed": false,
+      "confirmation_date": null,
+      "confirmed_by": null,
+      "assigned_users": []
+    }
+  },
+  {
+    "model": "fin_app_v2.task",
+    "pk": 1620,
+    "fields": {
+      "job": 97,
+      "title": "Dashboard tayyorlash",
+      "hours": 1,
+      "description": "",
+      "task_percentage": 0,
+      "progress": 0,
+      "start_date": "2025-07-11",
+      "deadline": "2025-07-17",
+      "feedback": null,
+      "money_for_task": 0,
+      "paid": false,
+      "assigned_email": "Sardor_Mannonov@dbr.org",
+      "task_type": "SIMPLE",
+      "confirmed": false,
+      "confirmation_date": null,
+      "confirmed_by": null,
+      "assigned_users": []
+    }
+  },
+  {
+    "model": "fin_app_v2.task",
+    "pk": 1621,
+    "fields": {
+      "job": 97,
+      "title": "Siryo ostatkasini to'grilash",
+      "hours": 1,
+      "description": "Zavsklad Siryo ostatkalarini oberishi kerak",
+      "task_percentage": 0,
+      "progress": 0,
+      "start_date": "2025-07-11",
+      "deadline": "2025-07-17",
+      "feedback": null,
+      "money_for_task": 0,
+      "paid": false,
+      "assigned_email": "SamandarRasulov@dbr.org",
+      "task_type": "SIMPLE",
+      "confirmed": false,
+      "confirmation_date": null,
+      "confirmed_by": null,
+      "assigned_users": []
+    }
+  },
+  {
+    "model": "fin_app_v2.task",
+    "pk": 1622,
+    "fields": {
+      "job": 91,
+      "title": "Dashboard dorabotka",
+      "hours": 1,
+      "description": "Kerakli ko'rsatkichlarni Dashboardda ko'rsatish uchun tayyorlash",
+      "task_percentage": 0,
+      "progress": 0,
+      "start_date": "2025-07-11",
+      "deadline": "2025-07-17",
+      "feedback": null,
+      "money_for_task": 0,
+      "paid": false,
+      "assigned_email": "Sardor_Mannonov@dbr.org",
+      "task_type": "SIMPLE",
+      "confirmed": false,
+      "confirmation_date": null,
+      "confirmed_by": null,
+      "assigned_users": []
+    }
+  },
+  {
+    "model": "fin_app_v2.task",
+    "pk": 1623,
+    "fields": {
+      "job": 91,
+      "title": "Upravlenskiy dorabotka",
+      "hours": 1,
+      "description": "",
+      "task_percentage": 0,
+      "progress": 0,
+      "start_date": "2025-07-11",
+      "deadline": "2025-07-17",
+      "feedback": null,
+      "money_for_task": 0,
+      "paid": false,
+      "assigned_email": "Abdullohuchkunov@dbr.org",
+      "task_type": "SIMPLE",
+      "confirmed": false,
+      "confirmation_date": null,
+      "confirmed_by": null,
+      "assigned_users": []
+    }
+  },
+  {
+    "model": "fin_app_v2.task",
+    "pk": 1624,
+    "fields": {
+      "job": 91,
+      "title": "Ostatkalarini to'g'rilash",
+      "hours": 1,
+      "description": "Zavsklad siryo ostatkalarini oberishi kerak",
+      "task_percentage": 0,
+      "progress": 0,
+      "start_date": "2025-07-11",
+      "deadline": "2025-07-17",
+      "feedback": null,
+      "money_for_task": 0,
+      "paid": false,
+      "assigned_email": "SamandarRasulov@dbr.org",
+      "task_type": "SIMPLE",
+      "confirmed": false,
+      "confirmation_date": null,
+      "confirmed_by": null,
+      "assigned_users": []
+    }
+  },
+  {
+    "model": "fin_app_v2.task",
+    "pk": 1625,
+    "fields": {
+      "job": 91,
+      "title": "May, Iyun oylari Hisobotlari",
+      "hours": 1,
+      "description": "May Iyun oylarini hisobotlarini chiqarish kerak",
+      "task_percentage": 0,
+      "progress": 0,
+      "start_date": "2025-07-11",
+      "deadline": "2025-07-17",
+      "feedback": null,
+      "money_for_task": 0,
+      "paid": false,
+      "assigned_email": "Abdullohuchkunov@dbr.org",
+      "task_type": "SIMPLE",
+      "confirmed": false,
+      "confirmation_date": null,
+      "confirmed_by": null,
+      "assigned_users": []
+    }
+  },
+
+  {
+    "model": "fin_app_v2.deductionlog",
+    "pk": 1,
+    "fields": {
+      "developer": 1,
+      "deducted_by": 1,
+      "deduction_amount": 20,
+      "deduction_date": "2024-12-18T15:46:19.491Z"
+    }
+  },
+  {
+    "model": "fin_app_v2.deductionlog",
+    "pk": 2,
+    "fields": {
+      "developer": 1,
+      "deducted_by": 1,
+      "deduction_amount": 10,
+      "deduction_date": "2024-12-18T15:47:09.390Z"
+    }
+  },
+
+  {
+    "model": "authtoken.token",
+    "pk": "50938a1982b116c52b46b398905abe0b5ca89af2",
+    "fields": {
+      "user": 1,
+      "created": "2025-06-29T17:44:06.987Z"
+    }
+  },
+  {
+    "model": "authtoken.tokenproxy",
+    "pk": "50938a1982b116c52b46b398905abe0b5ca89af2",
+    "fields": {
+      "user": 1,
+      "created": "2025-06-29T17:44:06.987Z"
+    }
+  }
+]
