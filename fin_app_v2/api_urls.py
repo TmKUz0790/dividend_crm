@@ -139,7 +139,8 @@ urlpatterns = [
 
     path('api/leads/', sales_funnel_views.LeadListCreateAPIView.as_view(), name='lead_list_create'),
     path('api/leads/<int:pk>/', sales_funnel_views.LeadRetrieveUpdateAPIView.as_view(), name='lead_detail_update'),
-    path('api/varonkas/', sales_funnel_views.VaronkaListAPIView.as_view(), name='varonka_list'),
+    path('api/varonkas/', sales_funnel_views.VaronkaListCreateAPIView.as_view(), name='varonka_list_create'),
+    path('api/varonkas/<int:pk>/', sales_funnel_views.VaronkaRetrieveUpdateDestroyAPIView.as_view(), name='varonka_detail_update_delete'),
     path('api/varonkas/<int:pk>/tasks/', sales_funnel_views.VaronkaTaskListAPIView.as_view(), name='varonka_task_list'),
 ]
 

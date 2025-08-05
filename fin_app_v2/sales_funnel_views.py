@@ -11,8 +11,13 @@ class LeadRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):
     queryset = Lead.objects.all()
     serializer_class = LeadSerializer
 
-# Varonka list (read-only, for now)
-class VaronkaListAPIView(generics.ListAPIView):
+
+# Varonka CRUD
+class VaronkaListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Varonka.objects.all()
+    serializer_class = VaronkaSerializer
+
+class VaronkaRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Varonka.objects.all()
     serializer_class = VaronkaSerializer
 
