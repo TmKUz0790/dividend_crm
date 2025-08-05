@@ -5,6 +5,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Job, Task, DeductionLog
 from .models_crm import CrmJob, CrmTask, CrmTaskComment, CrmTaskFile
+from .model_sales_funnel import Lead, Varonka, VaronkaTask
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -152,7 +153,7 @@ class CrmJobSerializer(serializers.ModelSerializer):
     class Meta:
         model = CrmJob
         fields = [
-            'id', 'client_email', 'created_at',
+            'id', 'title', 'client_email', 'over_all_income', 'created_at',
             'full_name', 'phone_number', 'position',
             'client_company_name', 'client_company_phone',
             'client_company_address', 'client_website',
@@ -162,12 +163,12 @@ class CrmJobSerializer(serializers.ModelSerializer):
 
 
 class CrmTaskSerializer(serializers.ModelSerializer):
-    job = serializers.PrimaryKeyRelatedField(read_only=True)
-
     class Meta:
         model = CrmTask
-        fields = '__all__'
-
+        fields = [
+            'id', 'job', 'title', 'description'
+            # Добавьте другие поля задачи, если они есть
+        ]
 
 
 class CrmTaskCommentSerializer(serializers.ModelSerializer):
@@ -186,3 +187,22 @@ class CrmTaskFileSerializer(serializers.ModelSerializer):
             'id', 'task', 'file', 'uploaded_at'
         ]
         read_only_fields = ['uploaded_at']
+
+
+# --- Sales Funnel Serializers ---
+class VaronkaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Varonka
+        fields = ['id', 'name', 'description']
+
+
+class VaronkaTaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VaronkaTask
+        fields = ['id', 'varonka', 'name', 'order']
+
+
+class LeadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Lead
+        fields = ['id', 'name', 'contact', 'varonka', 'current_task', 'is_done']
