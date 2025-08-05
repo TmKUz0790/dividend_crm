@@ -60,7 +60,10 @@ from . import api_views
 from .api_jwt_email import EmailTokenObtainPairView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .api_views import UserListView, all_crm_tasks
+from .api_views import JobTaskCrudAPIView
 from . import user_views
+from . import sales_funnel_views
+
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -132,6 +135,12 @@ urlpatterns = [
     path('users/<int:pk>/toggle-active/', user_views.toggle_user_active, name='user_toggle_active'),
     path('users/bulk-action/', user_views.bulk_user_action, name='user_bulk_action'),
     path('users/stats/', user_views.user_stats, name='user_stats'),
+
+
+    path('api/leads/', sales_funnel_views.LeadListCreateAPIView.as_view(), name='lead_list_create'),
+    path('api/leads/<int:pk>/', sales_funnel_views.LeadRetrieveUpdateAPIView.as_view(), name='lead_detail_update'),
+    path('api/varonkas/', sales_funnel_views.VaronkaListAPIView.as_view(), name='varonka_list'),
+    path('api/varonkas/<int:pk>/tasks/', sales_funnel_views.VaronkaTaskListAPIView.as_view(), name='varonka_task_list'),
 ]
 
 if settings.DEBUG:
