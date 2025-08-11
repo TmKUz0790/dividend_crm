@@ -16,12 +16,18 @@ class VaronkaTask(models.Model):
     def __str__(self):
         return f"{self.varonka.name} - {self.name}"
 
-class Lead(models.Model):
+
+# Универсальная заявка/карточка для канбана
+class Application(models.Model):
+    STAGE_CHOICES = [
+        ("new", "Новая"),
+        ("in_progress", "В работе"),
+        ("done", "Завершена"),
+    ]
     name = models.CharField(max_length=100)
     contact = models.CharField(max_length=100, blank=True)
-    varonka = models.ForeignKey(Varonka, on_delete=models.SET_NULL, null=True)
-    current_task = models.ForeignKey(VaronkaTask, on_delete=models.SET_NULL, null=True, blank=True)
-    is_done = models.BooleanField(default=False)
+    stage = models.CharField(max_length=32, choices=STAGE_CHOICES, default="new")
+    is_done = models.BooleanField(default=False, verbose_name='Статус')
 
     def __str__(self):
         return self.name

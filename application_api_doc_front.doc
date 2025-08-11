@@ -1,0 +1,77 @@
+# Документация по API для фронта (Application, drag-and-drop и таблица)
+
+## Application (Заявка/Карточка)
+
+### Получить список заявок
+GET /api/applications/
+Ответ:
+[
+  {
+    "id": 1,
+    "name": "Заявка 1",
+    "contact": "mail@mail.com",
+    "stage": "new",        // этап: new, in_progress, done
+    "is_done": false
+  }
+]
+
+### Создать новую заявку
+POST /api/applications/
+Тело запроса:
+{
+  "name": "Заявка 2",
+  "contact": "contact@mail.com",
+  "stage": "new",         // или "in_progress", "done"
+  "is_done": false
+}
+Ответ: созданный объект Application
+
+### Получить детали заявки
+GET /api/applications/{id}/
+Ответ:
+{
+  "id": 1,
+  "name": "Заявка 1",
+  "contact": "mail@mail.com",
+  "stage": "new",
+  "is_done": false
+}
+
+### Обновить заявку (например, drag-and-drop между этапами)
+PATCH /api/applications/{id}/
+Тело запроса:
+{
+  "stage": "in_progress"   // новое значение этапа
+}
+Ответ: обновлённый объект Application
+
+### Удалить заявку
+DELETE /api/applications/{id}/
+Ответ: 204 No Content
+
+---
+
+## Использование на фронте
+
+- Для drag-and-drop используйте поле `stage` как колонку.
+- Для таблицы выводите все поля: id, name, contact, stage, is_done.
+- Для добавления вручную используйте POST с нужными полями.
+- Для редактирования — PATCH/PUT, для удаления — DELETE.
+
+### Пример drag-and-drop (смена этапа)
+PATCH /api/applications/1/
+Тело:
+{
+  "stage": "done"
+}
+
+---
+
+## Возможные значения поля stage
+- "new" — Новая
+- "in_progress" — В работе
+- "done" — Завершена
+
+---
+
+Если нужны примеры для axios/fetch или расширенная документация — дайте знать!

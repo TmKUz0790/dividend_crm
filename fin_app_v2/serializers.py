@@ -5,7 +5,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Job, Task, DeductionLog
 from .models_crm import CrmJob, CrmTask, CrmTaskComment, CrmTaskFile
-from .model_sales_funnel import Lead, Varonka, VaronkaTask
+from .model_sales_funnel import Application, Varonka, VaronkaTask
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -202,7 +202,8 @@ class VaronkaTaskSerializer(serializers.ModelSerializer):
         fields = ['id', 'varonka', 'name', 'order']
 
 
-class LeadSerializer(serializers.ModelSerializer):
+# Универсальный сериализатор для Application
+class ApplicationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Lead
-        fields = ['id', 'name', 'contact', 'varonka', 'current_task', 'is_done']
+        model = Application
+        fields = ['id', 'name', 'contact', 'stage', 'is_done']

@@ -1,0 +1,95 @@
+# Документация по API для фронта (Lead, drag-and-drop)
+
+## Lead (Лид)
+
+### Получить список лидов
+GET /api/leads/
+Ответ:
+[
+  {
+    "id": 1,
+    "name": "Лид 1",
+    "contact": "mail@mail.com",
+    "current_task": 2,  // id этапа (VaronkaTask)
+    "is_done": false
+  }
+]
+
+### Создать нового лида
+POST /api/leads/
+Тело запроса:
+{
+  "name": "Лид 2",
+  "contact": "contact@mail.com",
+  "current_task": 3,  // id этапа
+  "is_done": false
+}
+Ответ: созданный объект Lead
+
+### Получить детали лида
+GET /api/leads/{id}/
+Ответ:
+{
+  "id": 1,
+  "name": "Лид 1",
+  "contact": "mail@mail.com",
+  "current_task": 2,
+  "is_done": false
+}
+
+### Обновить лида (например, drag-and-drop между этапами)
+PATCH /api/leads/{id}/
+Тело запроса:
+{
+  "current_task": 4  // id нового этапа
+}
+Ответ: обновлённый объект Lead
+
+### Удалить лида
+DELETE /api/leads/{id}/
+Ответ: 204 No Content
+
+---
+
+## VaronkaTask (Этапы для drag-and-drop)
+
+### Получить список этапов для воронки
+GET /api/varonkas/{varonka_id}/tasks/
+Ответ:
+[
+  {
+    "id": 2,
+    "varonka": 1,
+    "name": "Первый контакт",
+    "order": 1
+  }
+]
+
+---
+
+## Пример drag-and-drop (смена этапа у лида)
+
+PATCH /api/leads/1/
+Тело:
+{
+  "current_task": 4
+}
+
+---
+
+## Структура объекта Lead
+- id: int
+- name: str
+- contact: str
+- current_task: int (id этапа)
+- is_done: bool (статус)
+
+## Структура объекта VaronkaTask
+- id: int
+- varonka: int
+- name: str
+- order: int
+
+---
+
+Если нужны примеры для axios/fetch или расширенная документация — дайте знать!
