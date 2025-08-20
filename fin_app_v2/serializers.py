@@ -190,20 +190,79 @@ class CrmTaskFileSerializer(serializers.ModelSerializer):
 
 
 # --- Sales Funnel Serializers ---
-class VaronkaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Varonka
-        fields = ['id', 'name', 'description']
+
+
+from rest_framework import serializers
+from .model_sales_funnel import Application, Varonka, VaronkaTask, ApplicationTaskCompletion, VaronkaTemplate, \
+    VaronkaTemplateTask
 
 
 class VaronkaTaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = VaronkaTask
-        fields = ['id', 'varonka', 'name', 'order']
+        fields = ['id', 'varonka', 'name', 'order', 'description', 'is_required']
 
 
-# Универсальный сериализатор для Application
+class VaronkaSerializer(serializers.ModelSerializer):
+    tasks = VaronkaTaskSerializer(many=True, read_only=True)
+    tasks_count = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Varonka
+        fields = ['id', 'name', 'description', 'tasks', 'tasks_count']
+
+    def get_tasks_count(self, obj):
+        return obj.tasks.count()
+
+
+class ApplicationTaskCompletionSerializer(serializers.ModelSerializer):
+    task_name = serializers.CharField(source='task.name', read_only=True)
+
+    class Meta:
+        model = ApplicationTaskCompletion
+        fields = ['id', 'application', 'task', 'task_name', 'completed_at', 'notes', 'completed_by']
+
+
 class ApplicationSerializer(serializers.ModelSerializer):
+    varonka_name = serializers.CharField(source='varonka.name', read_only=True)
+    current_task_name = serializers.CharField(source='current_task.name', read_only=True)
+    task_completions = ApplicationTaskCompletionSerializer(many=True, read_only=True)
+    progress_percentage = serializers.SerializerMethodField()
+    next_task = serializers.SerializerMethodField()
+
     class Meta:
         model = Application
-        fields = ['id', 'name', 'contact', 'stage', 'is_done']
+        fields = [
+            'id', 'name', 'contact', 'stage', 'is_done',
+            'varonka', 'varonka_name', 'current_task', 'current_task_name',
+            'task_completions', 'progress_percentage', 'next_task',
+            'created_at', 'updated_at'
+        ]
+
+    def get_progress_percentage(self, obj):
+        return obj.progress_percentage()
+
+    def get_next_task(self, obj):
+        next_task = obj.get_next_task()
+        if next_task:
+            return {
+                'id': next_task.id,
+                'name': next_task.name,
+                'description': next_task.description,
+                'order': next_task.order
+            }
+        return None
+
+
+class VaronkaTemplateTaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VaronkaTemplateTask
+        fields = ['id', 'template', 'name', 'order', 'description', 'is_required']
+
+
+class VaronkaTemplateSerializer(serializers.ModelSerializer):
+    template_tasks = VaronkaTemplateTaskSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = VaronkaTemplate
+        fields = ['id', 'name', 'description', 'template_tasks']

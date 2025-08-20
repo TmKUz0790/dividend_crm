@@ -1,6 +1,7 @@
 from django.urls import path
-
+from django.urls import path
 from . import views
+from . import sales_funnel_views
 from .views import (create_job, create_tasks, job_list, client_login, client_progress,developer_login,developer_tasks,admin_dashboard,
                     deduction_logs,all_deduction_logs,deduction_logs_admin,deduct_balance,login_view)
 
@@ -110,4 +111,43 @@ path('tasks/<int:task_id>/confirm/', views.confirm_completed_task, name='confirm
 
     # AJAX URL для получения деталей задачи (для модального окна)
 
+
+
+
+
+    # Application endpoints
+    path('applications/', sales_funnel_views.ApplicationListCreateAPIView.as_view(), name='application-list-create'),
+    path('applications/<int:pk>/', sales_funnel_views.ApplicationRetrieveUpdateDestroyAPIView.as_view(), name='application-detail'),
+    path('applications/<int:application_id>/progress/', sales_funnel_views.application_progress, name='application-progress'),
+
+    # Varonka endpoints
+    path('varonkas/', sales_funnel_views.VaronkaListCreateAPIView.as_view(), name='varonka-list-create'),
+    path('varonkas/<int:pk>/', sales_funnel_views.VaronkaRetrieveUpdateDestroyAPIView.as_view(), name='varonka-detail'),
+    path('varonkas/<int:varonka_id>/with-tasks/', sales_funnel_views.varonka_with_tasks, name='varonka-with-tasks'),
+
+    # VaronkaTask endpoints
+    path('varonka-tasks/', sales_funnel_views.VaronkaTaskListCreateAPIView.as_view(), name='varonka-task-list-create'),
+    path('varonka-tasks/<int:pk>/', sales_funnel_views.VaronkaTaskRetrieveUpdateDestroyAPIView.as_view(),
+         name='varonka-task-detail'),
+
+    # ApplicationTaskCompletion endpoints
+    path('task-completions/', sales_funnel_views.ApplicationTaskCompletionListCreateAPIView.as_view(),
+         name='task-completion-list-create'),
+    path('task-completions/<int:pk>/', sales_funnel_views.ApplicationTaskCompletionRetrieveUpdateDestroyAPIView.as_view(),
+         name='task-completion-detail'),
+    path('complete-task/', sales_funnel_views.complete_task, name='complete-task'),
+
+    # VaronkaTemplate endpoints
+    path('varonka-templates/', sales_funnel_views.VaronkaTemplateListCreateAPIView.as_view(), name='varonka-template-list-create'),
+    path('varonka-templates/<int:pk>/', sales_funnel_views.VaronkaTemplateRetrieveUpdateDestroyAPIView.as_view(),
+         name='varonka-template-detail'),
+    path('create-varonka-from-template/', sales_funnel_views.create_varonka_from_template, name='create-varonka-from-template'),
+
+    # VaronkaTemplateTask endpoints
+    path('varonka-template-tasks/', sales_funnel_views.VaronkaTemplateTaskListCreateAPIView.as_view(),
+         name='varonka-template-task-list-create'),
+    path('varonka-template-tasks/<int:pk>/', sales_funnel_views.VaronkaTemplateTaskRetrieveUpdateDestroyAPIView.as_view(),
+         name='varonka-template-task-detail'),
 ]
+
+
