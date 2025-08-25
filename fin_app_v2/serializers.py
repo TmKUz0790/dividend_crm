@@ -190,17 +190,15 @@ class CrmTaskFileSerializer(serializers.ModelSerializer):
 
 
 # --- Sales Funnel Serializers ---
-
-
+# serializers.py
 from rest_framework import serializers
-from .model_sales_funnel import Application, Varonka, VaronkaTask, ApplicationTaskCompletion, VaronkaTemplate, \
-    VaronkaTemplateTask
+from .model_sales_funnel import Varonka, VaronkaTask, Application, ApplicationTaskCompletion
 
 
 class VaronkaTaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = VaronkaTask
-        fields = ['id', 'varonka', 'name', 'order', 'description', 'is_required']
+        fields = ['id', 'name', 'description', 'order', 'is_required']
 
 
 class VaronkaSerializer(serializers.ModelSerializer):
@@ -209,60 +207,72 @@ class VaronkaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Varonka
-        fields = ['id', 'name', 'description', 'tasks', 'tasks_count']
+        fields = ['id', 'name', 'description', 'created_at', 'tasks', 'tasks_count']
+
+    def get_tasks_count(self, obj):
+        return obj.tasks.count()
+
+
+class VaronkaListSerializer(serializers.ModelSerializer):
+    """Simplified serializer for list view"""
+    tasks_count = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Varonka
+        fields = ['id', 'name', 'description', 'created_at', 'tasks_count']
 
     def get_tasks_count(self, obj):
         return obj.tasks.count()
 
 
 class ApplicationTaskCompletionSerializer(serializers.ModelSerializer):
-    task_name = serializers.CharField(source='task.name', read_only=True)
+    task_name = serializers.CharField(source='varonka_task.name', read_only=True)
 
     class Meta:
         model = ApplicationTaskCompletion
-        fields = ['id', 'application', 'task', 'task_name', 'completed_at', 'notes', 'completed_by']
+        fields = ['id', 'varonka_task', 'task_name', 'completed_at', 'notes', 'completed_by']
 
 
 class ApplicationSerializer(serializers.ModelSerializer):
     varonka_name = serializers.CharField(source='varonka.name', read_only=True)
-    current_task_name = serializers.CharField(source='current_task.name', read_only=True)
     task_completions = ApplicationTaskCompletionSerializer(many=True, read_only=True)
-    progress_percentage = serializers.SerializerMethodField()
-    next_task = serializers.SerializerMethodField()
+    current_task = serializers.SerializerMethodField()
+    completed_tasks_count = serializers.SerializerMethodField()
+    total_tasks_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Application
         fields = [
-            'id', 'name', 'contact', 'stage', 'is_done',
-            'varonka', 'varonka_name', 'current_task', 'current_task_name',
-            'task_completions', 'progress_percentage', 'next_task',
-            'created_at', 'updated_at'
+            'id', 'name', 'contact', 'status', 'varonka', 'varonka_name',
+            'created_at', 'updated_at', 'task_completions', 'current_task',
+            'completed_tasks_count', 'total_tasks_count'
         ]
 
-    def get_progress_percentage(self, obj):
-        return obj.progress_percentage()
-
-    def get_next_task(self, obj):
-        next_task = obj.get_next_task()
-        if next_task:
-            return {
-                'id': next_task.id,
-                'name': next_task.name,
-                'description': next_task.description,
-                'order': next_task.order
-            }
+    def get_current_task(self, obj):
+        current = obj.current_task()
+        if current:
+            return {'id': current.id, 'name': current.name, 'order': current.order}
         return None
 
+    def get_completed_tasks_count(self, obj):
+        return obj.task_completions.count()
 
-class VaronkaTemplateTaskSerializer(serializers.ModelSerializer):
+    def get_total_tasks_count(self, obj):
+        return obj.varonka.tasks.count()
+
+
+class ApplicationListSerializer(serializers.ModelSerializer):
+    """Simplified serializer for list view"""
+    varonka_name = serializers.CharField(source='varonka.name', read_only=True)
+    current_task_name = serializers.SerializerMethodField()
+
     class Meta:
-        model = VaronkaTemplateTask
-        fields = ['id', 'template', 'name', 'order', 'description', 'is_required']
+        model = Application
+        fields = [
+            'id', 'name', 'contact', 'status', 'varonka_name',
+            'created_at', 'current_task_name'
+        ]
 
-
-class VaronkaTemplateSerializer(serializers.ModelSerializer):
-    template_tasks = VaronkaTemplateTaskSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = VaronkaTemplate
-        fields = ['id', 'name', 'description', 'template_tasks']
+    def get_current_task_name(self, obj):
+        current = obj.current_task()
+        return current.name if current else 'All tasks completed'
