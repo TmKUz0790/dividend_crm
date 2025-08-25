@@ -63,6 +63,12 @@ from .api_views import UserListView, all_crm_tasks
 from .api_views import JobTaskCrudAPIView
 from . import user_views
 from . import sales_funnel_views
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register(r'varonkas', sales_funnel_views.VaronkaViewSet, basename='varonka')
+router.register(r'varonka-tasks', sales_funnel_views.VaronkaTaskViewSet, basename='varonkatask')
+router.register(r'applications', sales_funnel_views.ApplicationViewSet, basename='application')
 
 
 from django.conf import settings
@@ -137,32 +143,9 @@ urlpatterns = [
     path('users/stats/', user_views.user_stats, name='user_stats'),
 
 
-    path('api/applications/', sales_funnel_views.ApplicationListCreateAPIView.as_view(), name='application_list_create'),
-    path('api/applications/<int:pk>/', sales_funnel_views.ApplicationRetrieveUpdateDestroyAPIView.as_view(), name='application_detail_update_delete'),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-
-
-    """
-
-
-
-Endpoints:
-POST /api/auth/token/ - Get token
-POST /api/auth/login/ - Session login
-POST /api/auth/logout/ - Logout
-GET /api/auth/check/ - Check auth
-
-GET /api/users/ - List users
-POST /api/users/ - Create user
-GET /api/users/{id}/ - User detail
-PUT/PATCH /api/users/{id}/ - Update user
-DELETE /api/users/{id}/ - Delete user
-POST /api/users/{id}/change-password/ - Change password
-POST /api/users/{id}/toggle-active/ - Toggle active
-POST /api/users/bulk-action/ - Bulk actions
-GET /api/users/stats/ - Statistics
-"""
+urlpatterns += router.urls
