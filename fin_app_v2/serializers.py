@@ -243,13 +243,13 @@ class ApplicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Application
         fields = [
-            'id', 'name', 'contact', 'status', 'varonka', 'varonka_name',
+            'id', 'name', 'contact', 'varonka', 'varonka_name',
             'created_at', 'updated_at', 'task_completions', 'current_task',
             'completed_tasks_count', 'total_tasks_count'
         ]
 
     def get_current_task(self, obj):
-        current = obj.current_task()
+        current = obj.get_next_task() if hasattr(obj, 'get_next_task') else None
         if current:
             return {'id': current.id, 'name': current.name, 'order': current.order}
         return None
@@ -274,5 +274,5 @@ class ApplicationListSerializer(serializers.ModelSerializer):
         ]
 
     def get_current_task_name(self, obj):
-        current = obj.current_task
+        current = obj.get_next_task() if hasattr(obj, 'get_next_task') else None
         return current.name if current else 'All tasks completed'
