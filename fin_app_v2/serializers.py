@@ -269,7 +269,7 @@ class ApplicationListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Application
         fields = [
-            'id', 'name', 'contact', 'status', 'varonka_name',
+            'id', 'name', 'contact', 'varonka_name',
             'created_at', 'current_task_name'
         ]
 
