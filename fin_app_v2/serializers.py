@@ -274,5 +274,5 @@ class ApplicationListSerializer(serializers.ModelSerializer):
         ]
 
     def get_current_task_name(self, obj):
-        current = obj.current_task()
+        current = obj.current_task
         return current.name if current else 'All tasks completed'
