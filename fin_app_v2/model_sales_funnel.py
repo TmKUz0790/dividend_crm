@@ -70,7 +70,8 @@ class Application(models.Model):
     name = models.CharField(max_length=100)
     contact = models.CharField(max_length=100, blank=True)
     stage = models.CharField(max_length=32, choices=STAGE_CHOICES, default="new")
-    is_done = models.BooleanField(default=False, verbose_name='Статус')
+    status = models.CharField(max_length=32, choices=STAGE_CHOICES, default="new", verbose_name='Статус')
+    is_done = models.BooleanField(default=False)
 
     # Link to varonka for structured workflow
     varonka = models.ForeignKey(Varonka, on_delete=models.CASCADE, null=True, blank=True)
