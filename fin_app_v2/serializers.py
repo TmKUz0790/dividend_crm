@@ -198,7 +198,7 @@ from .model_sales_funnel import Varonka, VaronkaTask, Application, ApplicationTa
 class VaronkaTaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = VaronkaTask
-        fields = ['id', 'name', 'description', 'order', 'is_required']
+        fields = ['id', 'varonka', 'name', 'description', 'order', 'is_required']
 
 
 class VaronkaSerializer(serializers.ModelSerializer):
