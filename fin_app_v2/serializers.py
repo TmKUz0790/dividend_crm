@@ -1,3 +1,6 @@
+from rest_framework import serializers
+from .model_sales_funnel import Application
+from .model_sales_funnel import Varonka
 # --- Kanban Board Serializer ---
 class ApplicationCardSerializer(serializers.ModelSerializer):
     class Meta:
