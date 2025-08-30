@@ -1,3 +1,4 @@
+from .sales_funnel_views import VaronkaBoardView
 # from django.urls import path
 # from . import api_views
 # from .api_jwt_email import EmailTokenObtainPairView
@@ -75,6 +76,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    # Kanban board endpoint
+    path('api/board/', VaronkaBoardView.as_view(), name='api_board'),
     # JWT Auth
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

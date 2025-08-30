@@ -74,4 +74,63 @@ PATCH /api/applications/1/
 
 ---
 
-Если нужны примеры для axios/fetch или расширенная документация — дайте знать!
+# Инструкция для Next.js по реализации drag-and-drop kanban CRM
+
+## 1. Получение данных для доски
+- Запрос: `GET /api/board/`
+- Ответ:
+[
+  {
+    "id": 1,
+    "name": "Этап-1",
+    "applications": {
+      "new": [{ "id": 101, "name": "Иванов Иван", "contact": "+998..." }, ...],
+      "in_progress": [{ ... }],
+      "done": [{ ... }]
+    }
+  },
+  ...
+]
+
+## 2. Отображение этапов и колонок
+- Сверху — этапы (воронки), как вкладки.
+- Внутри этапа — три колонки: "Новая", "В работе", "Завершён".
+- В каждой колонке — карточки заявок (name, contact).
+
+## 3. Drag-and-drop
+- Используйте библиотеку `react-beautiful-dnd` или аналог.
+- При перетаскивании карточки между статусами:
+  - Отправьте PATCH:
+```js
+await fetch(`/api/applications/${appId}/`, {
+  method: 'PATCH',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ status: newStatus })
+});
+```
+- После успешного ответа — обновите данные (повторный fetch `/api/board/`).
+
+## 4. Переключение этапов
+- При клике на этап — показывайте `board[index].applications`.
+
+## 5. Пример компонента карточки
+```jsx
+<Card>
+  <div>{app.name}</div>
+  <div>{app.contact}</div>
+</Card>
+```
+
+## 6. Пример PATCH для смены этапа
+```js
+await fetch(`/api/applications/${appId}/`, {
+  method: 'PATCH',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ varonka: newVaronkaId })
+});
+```
+
+## 7. Рекомендация
+- Храните board в useState, обновляйте после каждого действия.
+- Для drag-and-drop используйте onDragEnd, чтобы отправлять PATCH и обновлять доску.
+

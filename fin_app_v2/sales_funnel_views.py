@@ -1,3 +1,14 @@
+# --- Kanban Board ViewSet ---
+from rest_framework.views import APIView
+from .serializers import VaronkaBoardSerializer
+from rest_framework.response import Response
+
+class VaronkaBoardView(APIView):
+    """Endpoint для Kanban board: этапы + заявки по статусам"""
+    def get(self, request):
+        varonkas = Varonka.objects.all()
+        data = VaronkaBoardSerializer(varonkas, many=True).data
+        return Response(data)
 # views.py
 from rest_framework import viewsets, status
 from rest_framework.decorators import action

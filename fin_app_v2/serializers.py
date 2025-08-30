@@ -1,3 +1,23 @@
+# --- Kanban Board Serializer ---
+class ApplicationCardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Application
+        fields = ['id', 'name', 'contact', 'status']
+
+class VaronkaBoardSerializer(serializers.ModelSerializer):
+    applications = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Varonka
+        fields = ['id', 'name', 'applications']
+
+    def get_applications(self, obj):
+        # Группируем заявки по статусу
+        apps = obj.application_set.all()
+        grouped = {'new': [], 'in_progress': [], 'done': []}
+        for app in apps:
+            grouped.setdefault(app.status, []).append(ApplicationCardSerializer(app).data)
+        return grouped
 # serializers.py - CREATE THIS AS A NEW FILE
 # This file doesn't exist in your project, so it's 100% safe to add
 
