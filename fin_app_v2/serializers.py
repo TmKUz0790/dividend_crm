@@ -282,6 +282,8 @@ class ApplicationSerializer(serializers.ModelSerializer):
         return obj.task_completions.count()
 
     def get_total_tasks_count(self, obj):
+        if obj.varonka is None:
+            return 0
         return obj.varonka.tasks.count()
 
 
