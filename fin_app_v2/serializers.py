@@ -257,7 +257,7 @@ class ApplicationTaskCompletionSerializer(serializers.ModelSerializer):
 
 
 class ApplicationSerializer(serializers.ModelSerializer):
-    status = serializers.CharField(source='status', read_only=True)
+    status = serializers.CharField(read_only=True)
     varonka_name = serializers.CharField(source='varonka.name', read_only=True)
     task_completions = ApplicationTaskCompletionSerializer(many=True, read_only=True)
     current_task = serializers.SerializerMethodField()
