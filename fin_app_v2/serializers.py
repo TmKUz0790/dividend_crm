@@ -286,7 +286,7 @@ class ApplicationSerializer(serializers.ModelSerializer):
 
 
 class ApplicationListSerializer(serializers.ModelSerializer):
-    status = serializers.CharField(source='status', read_only=True)
+    status = serializers.CharField(read_only=True)
     """Simplified serializer for list view"""
     varonka_name = serializers.CharField(source='varonka.name', read_only=True)
     current_task_name = serializers.SerializerMethodField()
