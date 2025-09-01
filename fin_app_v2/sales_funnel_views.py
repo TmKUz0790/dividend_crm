@@ -217,37 +217,55 @@ class VaronkaBoardView(APIView):
 
     def get(self, request):
         varonka_id = request.query_params.get('varonka')
-        if not varonka_id:
-            return Response({'error': 'varonka parameter is required'},
-                            status=status.HTTP_400_BAD_REQUEST)
+        if varonka_id:
+            try:
+                varonka = Varonka.objects.get(id=varonka_id)
+            except Varonka.DoesNotExist:
+                return Response({'error': 'Varonka not found'}, status=status.HTTP_404_NOT_FOUND)
 
-        try:
-            varonka = Varonka.objects.get(id=varonka_id)
-        except Varonka.DoesNotExist:
-            return Response({'error': 'Varonka not found'},
-                            status=status.HTTP_404_NOT_FOUND)
+            stages_data = []
+            for stage in varonka.stages.all().order_by('order'):
+                applications = Application.objects.filter(
+                    varonka=varonka,
+                    current_stage=stage
+                ).order_by('-created_at')
+                stage_data = {
+                    'id': stage.id,
+                    'name': stage.name,
+                    'slug': stage.slug,
+                    'color': stage.color,
+                    'applications': ApplicationListSerializer(applications, many=True).data
+                }
+                stages_data.append(stage_data)
 
-        # Get all stages for this varonka with their applications
-        stages_data = []
-        for stage in varonka.stages.all().order_by('order'):
-            applications = Application.objects.filter(
-                varonka=varonka,
-                current_stage=stage
-            ).order_by('-created_at')
-
-            stage_data = {
-                'id': stage.id,
-                'name': stage.name,
-                'slug': stage.slug,
-                'color': stage.color,
-                'applications': ApplicationListSerializer(applications, many=True).data
-            }
-            stages_data.append(stage_data)
-
-        return Response({
-            'varonka': VaronkaSerializer(varonka).data,
-            'stages': stages_data
-        })
+            return Response({
+                'varonka': VaronkaSerializer(varonka).data,
+                'stages': stages_data
+            })
+        else:
+            # Возвращаем все воронки с их стадиями и заявками
+            all_varonkas = Varonka.objects.all().order_by('created_at')
+            result = []
+            for varonka in all_varonkas:
+                stages_data = []
+                for stage in varonka.stages.all().order_by('order'):
+                    applications = Application.objects.filter(
+                        varonka=varonka,
+                        current_stage=stage
+                    ).order_by('-created_at')
+                    stage_data = {
+                        'id': stage.id,
+                        'name': stage.name,
+                        'slug': stage.slug,
+                        'color': stage.color,
+                        'applications': ApplicationListSerializer(applications, many=True).data
+                    }
+                    stages_data.append(stage_data)
+                result.append({
+                    'varonka': VaronkaSerializer(varonka).data,
+                    'stages': stages_data
+                })
+            return Response(result)
 
 
 class VaronkaViewSet(viewsets.ModelViewSet):
