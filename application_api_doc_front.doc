@@ -34,7 +34,19 @@ GET /api/applications/{id}/
   "name": "Заявка 1",
   "contact": "mail@mail.com",
   "stage": "new",
-  "is_done": false
+  "is_done": false,
+  "tasks": [
+    {
+      "id": 123,
+      "task": 5,
+      "task_name": "Позвонить клиенту",
+      "status": "in_progress",
+      "completed_at": "2025-09-02T12:34:56Z",
+      "notes": "",
+      "completed_by": "Менеджер"
+    }
+  ],
+  "varonka_name": "Первый этап"
 }
 
 ### Обновить заявку (например, drag-and-drop между этапами)

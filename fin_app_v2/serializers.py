@@ -261,6 +261,7 @@ class ApplicationSerializer(serializers.ModelSerializer):
     status = serializers.CharField()
     varonka_name = serializers.CharField(source='varonka.name', read_only=True)
     task_completions = ApplicationTaskCompletionSerializer(many=True, read_only=True)
+    tasks = ApplicationTaskCompletionSerializer(many=True, read_only=True, source='task_completions')
     current_task = serializers.SerializerMethodField()
     completed_tasks_count = serializers.SerializerMethodField()
     total_tasks_count = serializers.SerializerMethodField()
@@ -268,7 +269,7 @@ class ApplicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Application
         fields = [
-            'id', 'name', 'contact', 'status', 'varonka', 'varonka_name',
+            'id', 'name', 'contact', 'status', 'tasks', 'varonka', 'varonka_name',
             'created_at', 'updated_at', 'task_completions', 'current_task',
             'completed_tasks_count', 'total_tasks_count'
         ]
