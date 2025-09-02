@@ -36,7 +36,7 @@ class Application(models.Model):
 
 	name = models.CharField(max_length=100)
 	contact = models.CharField(max_length=100, blank=True)
-	status = models.CharField(max_length=32, choices=STAGE_CHOICES, default="new", verbose_name='Статус')
+	# status = models.CharField(max_length=32, choices=STAGE_CHOICES, default="new", verbose_name='Статус')
 	is_done = models.BooleanField(default=False)
 
 	varonka = models.ForeignKey(Varonka, on_delete=models.CASCADE, null=True, blank=True)
