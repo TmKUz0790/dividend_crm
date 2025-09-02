@@ -1,6 +1,7 @@
 from django.urls import path
 from django.urls import path
 from . import views
+from . import sales_funnel_views
 from .views import (create_job, create_tasks, job_list, client_login, client_progress,developer_login,developer_tasks,admin_dashboard,
                     deduction_logs,all_deduction_logs,deduction_logs_admin,deduct_balance,login_view)
 
@@ -11,12 +12,13 @@ from .views import (create_job, create_tasks, job_list, client_login, client_pro
 
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-
+from . import model_sales_funnel
 
 router = DefaultRouter()
-
-
-
+router.register(r'varonkas', sales_funnel_views.VaronkaViewSet)
+router.register(r'tasks', sales_funnel_views.VaronkaTaskViewSet)
+router.register(r'applications', sales_funnel_views.ApplicationViewSet)
+router.register(r'completions', sales_funnel_views.ApplicationTaskCompletionViewSet)
 urlpatterns = [
     # Job creation (no developers assigned here)
     path('deduction_logs_admin/', views.deduction_logs_admin, name='deduction_logs_admin'),

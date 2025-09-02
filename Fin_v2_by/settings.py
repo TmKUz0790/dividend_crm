@@ -44,16 +44,7 @@ CSRF_TRUSTED_ORIGINS = [
 
 
 # Application definition
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'railway',
-        'USER': 'root',
-        'PASSWORD': 'SbtWWMwOZmMxOehDRIUIQPpGumdnRPqj',
-        'HOST': 'hopper.proxy.rlwy.net',
-        'PORT': '58984',
-    }
-}
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -158,7 +149,7 @@ DATABASES = {
         'USER': os.environ.get('MYSQL_USER', 'root'),
         'PASSWORD': os.environ.get('MYSQL_PASSWORD', 'SbtWWMwOZmMxOehDRIUIQPpGumdnRPqj'),
         'HOST': os.environ.get('MYSQL_HOST', 'hopper.proxy.rlwy.net'),
-        'PORT': os.environ.get('MYSQL_PORT', '58984'),
+        'PORT': os.environ.get('MYSQL_PORT', '58984ё'),
     }
 }
 

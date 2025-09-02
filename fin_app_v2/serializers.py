@@ -2,44 +2,25 @@ from rest_framework import serializers
 from .model_sales_funnel import Application
 from .model_sales_funnel import Varonka
 # --- Kanban Board Serializer ---
-# class ApplicationCardSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Application
-#         fields = ['id', 'name', 'contact', 'status']
+class ApplicationCardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Application
+        fields = ['id', 'name', 'contact', 'status']
 
-# class VaronkaBoardSerializer(serializers.ModelSerializer):
-#     tasks = serializers.SerializerMethodField()
+class VaronkaBoardSerializer(serializers.ModelSerializer):
+    applications = serializers.SerializerMethodField()
 
-#     class Meta:
-#         model = Varonka
-#         fields = ['id', 'name', 'tasks']
+    class Meta:
+        model = Varonka
+        fields = ['id', 'name', 'applications']
 
-#     def get_tasks(self, obj):
-#         from .model_sales_funnel import VaronkaTask, ApplicationTaskCompletion, Application
-#         tasks = VaronkaTask.objects.filter(varonka=obj)
-#         grouped = {'new': [], 'in_progress': [], 'done': []}
-#         for task in tasks:
-#             completions = ApplicationTaskCompletion.objects.filter(varonka=obj, varonka_task=task)
-#             if completions.exists():
-#                 for completion in completions:
-#                     application = completion.application
-#                     status = completion.status
-#                     grouped.setdefault(status, []).append({
-#                         'id': task.id,
-#                         'name': task.name,
-#                         'status': status,
-#                         'application_id': application.id if application else None,
-#                         'application_name': application.name if application else None
-#                     })
-#             else:
-#                 grouped['new'].append({
-#                     'id': task.id,
-#                     'name': task.name,
-#                     'status': 'new',
-#                     'application_id': None,
-#                     'application_name': None
-#                 })
-#         return grouped
+    def get_applications(self, obj):
+        # Группируем заявки по статусу
+        apps = obj.application_set.all()
+        grouped = {'new': [], 'in_progress': [], 'done': []}
+        for app in apps:
+            grouped.setdefault(app.status, []).append(ApplicationCardSerializer(app).data)
+        return grouped
 # serializers.py - CREATE THIS AS A NEW FILE
 # This file doesn't exist in your project, so it's 100% safe to add
 
@@ -233,108 +214,92 @@ class CrmTaskFileSerializer(serializers.ModelSerializer):
 
 # --- Sales Funnel Serializers ---
 # serializers.py
-# from rest_framework import serializers
-# from .model_sales_funnel import Varonka, VaronkaTask, Application, ApplicationTaskCompletion
+from rest_framework import serializers
+from .model_sales_funnel import Varonka, VaronkaTask, Application, ApplicationTaskCompletion
 
 
-# class VaronkaTaskSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = VaronkaTask
-#         fields = ['id', 'varonka', 'name', 'description', 'order', 'is_required']
+class VaronkaTaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VaronkaTask
+        fields = ['id', 'varonka', 'name', 'description', 'order', 'is_required']
 
 
-# class VaronkaSerializer(serializers.ModelSerializer):
-#     tasks = VaronkaTaskSerializer(many=True, read_only=True)
-#     tasks_count = serializers.SerializerMethodField()
+class VaronkaSerializer(serializers.ModelSerializer):
+    tasks = VaronkaTaskSerializer(many=True, read_only=True)
+    tasks_count = serializers.SerializerMethodField()
 
-#     class Meta:
-#         model = Varonka
-#         fields = ['id', 'name', 'description', 'created_at', 'tasks', 'tasks_count']
+    class Meta:
+        model = Varonka
+        fields = ['id', 'name', 'description', 'created_at', 'tasks', 'tasks_count']
 
-#     def get_tasks_count(self, obj):
-#         return obj.tasks.count()
-
-
-# class VaronkaListSerializer(serializers.ModelSerializer):
-#     """Simplified serializer for list view"""
-#     tasks_count = serializers.SerializerMethodField()
-
-#     class Meta:
-#         model = Varonka
-#         fields = ['id', 'name', 'description', 'created_at', 'tasks_count']
-
-#     def get_tasks_count(self, obj):
-#         return obj.tasks.count()
+    def get_tasks_count(self, obj):
+        return obj.tasks.count()
 
 
-# class ApplicationTaskCompletionSerializer(serializers.ModelSerializer):
-#     varonka = serializers.PrimaryKeyRelatedField(queryset=Varonka.objects.all())
-#     varonka_name = serializers.CharField(source='varonka.name', read_only=True)
-#     status = serializers.CharField()
-#     application = serializers.PrimaryKeyRelatedField(queryset=Application.objects.all())
+class VaronkaListSerializer(serializers.ModelSerializer):
+    """Simplified serializer for list view"""
+    tasks_count = serializers.SerializerMethodField()
 
-#     class Meta:
-#         model = ApplicationTaskCompletion
-#         fields = ['id', 'application', 'varonka', 'varonka_name', 'completed_at', 'notes', 'completed_by', 'status']
+    class Meta:
+        model = Varonka
+        fields = ['id', 'name', 'description', 'created_at', 'tasks_count']
 
-
-# class ApplicationSerializer(serializers.ModelSerializer):
-#     status = serializers.CharField()
-#     varonka_name = serializers.CharField(source='varonka.name', read_only=True)
-#     task_completions = ApplicationTaskCompletionSerializer(many=True, read_only=True)
-#     current_task = serializers.SerializerMethodField()
-#     completed_tasks_count = serializers.SerializerMethodField()
-#     total_tasks_count = serializers.SerializerMethodField()
-#     tasks = serializers.SerializerMethodField()
-
-#     class Meta:
-#         model = Application
-#         fields = [
-#             'id', 'name', 'contact', 'status', 'tasks', 'varonka', 'varonka_name',
-#             'created_at', 'updated_at', 'task_completions', 'current_task',
-#             'completed_tasks_count', 'total_tasks_count'
-#         ]
-
-#     def get_tasks(self, obj):
-#         return [
-#             {
-#                 'task_id': t.task.id,
-#                 'task_name': t.task.name,
-#                 'client_id': obj.id,
-#                 'client_name': obj.name,
-#                 'status': t.status
-#             }
-#             for t in obj.task_completions.all()
-#         ]
-
-#     def get_current_task(self, obj):
-#         current = obj.get_next_task() if hasattr(obj, 'get_next_task') else None
-#         if current:
-#             return {'id': current.id, 'name': current.name, 'order': current.order}
-#         return None
-
-#     def get_completed_tasks_count(self, obj):
-#         return obj.task_completions.count()
-
-#     def get_total_tasks_count(self, obj):
-#         if obj.varonka is None:
-#             return 0
-#         return obj.varonka.tasks.count()
+    def get_tasks_count(self, obj):
+        return obj.tasks.count()
 
 
-# class ApplicationListSerializer(serializers.ModelSerializer):
-#     status = serializers.CharField()
-#     """Simplified serializer for list view"""
-#     varonka_name = serializers.CharField(source='varonka.name', read_only=True)
-#     current_task_name = serializers.SerializerMethodField()
+class ApplicationTaskCompletionSerializer(serializers.ModelSerializer):
+    task_name = serializers.CharField(source='task.name', read_only=True)
 
-#     class Meta:
-#         model = Application
-#         fields = [
-#             'id', 'name', 'contact', 'status', 'varonka_name',
-#             'created_at', 'current_task_name'
-#         ]
+    class Meta:
+        model = ApplicationTaskCompletion
+        fields = ['id', 'task', 'task_name', 'completed_at', 'notes', 'completed_by']
 
-#     def get_current_task_name(self, obj):
-#         current = obj.get_next_task() if hasattr(obj, 'get_next_task') else None
-#         return current.name if current else 'All tasks completed'
+
+class ApplicationSerializer(serializers.ModelSerializer):
+    status = serializers.CharField()
+    varonka_name = serializers.CharField(source='varonka.name', read_only=True)
+    task_completions = ApplicationTaskCompletionSerializer(many=True, read_only=True)
+    current_task = serializers.SerializerMethodField()
+    completed_tasks_count = serializers.SerializerMethodField()
+    total_tasks_count = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Application
+        fields = [
+            'id', 'name', 'contact', 'status', 'varonka', 'varonka_name',
+            'created_at', 'updated_at', 'task_completions', 'current_task',
+            'completed_tasks_count', 'total_tasks_count'
+        ]
+
+    def get_current_task(self, obj):
+        current = obj.get_next_task() if hasattr(obj, 'get_next_task') else None
+        if current:
+            return {'id': current.id, 'name': current.name, 'order': current.order}
+        return None
+
+    def get_completed_tasks_count(self, obj):
+        return obj.task_completions.count()
+
+    def get_total_tasks_count(self, obj):
+        if obj.varonka is None:
+            return 0
+        return obj.varonka.tasks.count()
+
+
+class ApplicationListSerializer(serializers.ModelSerializer):
+    status = serializers.CharField()
+    """Simplified serializer for list view"""
+    varonka_name = serializers.CharField(source='varonka.name', read_only=True)
+    current_task_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Application
+        fields = [
+            'id', 'name', 'contact', 'status', 'varonka_name',
+            'created_at', 'current_task_name'
+        ]
+
+    def get_current_task_name(self, obj):
+        current = obj.get_next_task() if hasattr(obj, 'get_next_task') else None
+        return current.name if current else 'All tasks completed'
