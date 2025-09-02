@@ -120,4 +120,3 @@ class VaronkaTemplateTask(models.Model):
 
 	def __str__(self):
 		return f"{self.template.name} - {self.name}"
-
