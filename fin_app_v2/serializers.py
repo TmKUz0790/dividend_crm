@@ -250,10 +250,11 @@ class VaronkaListSerializer(serializers.ModelSerializer):
 
 class ApplicationTaskCompletionSerializer(serializers.ModelSerializer):
     task_name = serializers.CharField(source='task.name', read_only=True)
+    status = serializers.CharField()
 
     class Meta:
         model = ApplicationTaskCompletion
-        fields = ['id', 'task', 'task_name', 'completed_at', 'notes', 'completed_by']
+        fields = ['id', 'task', 'task_name', 'completed_at', 'notes', 'completed_by', 'status']
 
 
 class ApplicationSerializer(serializers.ModelSerializer):

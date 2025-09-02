@@ -134,3 +134,46 @@ await fetch(`/api/applications/${appId}/`, {
 - Храните board в useState, обновляйте после каждого действия.
 - Для drag-and-drop используйте onDragEnd, чтобы отправлять PATCH и обновлять доску.
 
+---
+
+# API для задач клиентов (ApplicationTaskCompletion, dnd-канбан)
+
+## Получить задачи клиента
+GET /application-task-completions/?application={application_id}
+Ответ:
+[
+  {
+    "id": 123,
+    "task": 5,
+    "task_name": "Позвонить клиенту",
+    "status": "in_progress",
+    "completed_at": "2025-09-02T12:34:56Z",
+    "notes": "",
+    "completed_by": "Менеджер"
+  },
+  ...
+]
+
+## Изменить статус задачи (dnd)
+PATCH /application-task-completions/{id}/
+{
+  "status": "in_progress" // или "done", "new"
+}
+Ответ: обновленная задача.
+
+## Список статусов для dnd
+- "new" — Новая
+- "in_progress" — В работе
+- "done" — Завершена
+
+## Пример PATCH запроса для dnd
+PATCH /application-task-completions/123/
+{
+  "status": "done"
+}
+
+## Примечания
+- Для получения задач конкретного клиента используйте параметр `application`.
+- Для обновления статуса задачи используйте PATCH с нужным статусом.
+- Все задачи клиента доступны через endpoint `/application-task-completions/`.
+

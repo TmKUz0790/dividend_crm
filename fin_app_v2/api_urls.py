@@ -67,9 +67,11 @@ from . import sales_funnel_views
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
+
 router.register(r'varonkas', sales_funnel_views.VaronkaViewSet, basename='varonka')
 router.register(r'varonka-tasks', sales_funnel_views.VaronkaTaskViewSet, basename='varonkatask')
 router.register(r'applications', sales_funnel_views.ApplicationViewSet, basename='application')
+router.register(r'application-task-completions', sales_funnel_views.ApplicationTaskCompletionViewSet, basename='applicationtaskcompletion')
 
 
 from django.conf import settings

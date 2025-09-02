@@ -75,6 +75,12 @@ class ApplicationTaskCompletion(models.Model):
 	completed_at = models.DateTimeField(auto_now_add=True)
 	notes = models.TextField(blank=True, help_text="Notes about task completion")
 	completed_by = models.CharField(max_length=100, blank=True)  # Could be ForeignKey to User model
+	STATUS_CHOICES = [
+		("new", "Новая"),
+		("in_progress", "В работе"),
+		("done", "Завершена"),
+	]
+	status = models.CharField(max_length=32, choices=STATUS_CHOICES, default="new", verbose_name='Статус задачи')
 
 	class Meta:
 		unique_together = ['application', 'task']  # Prevent duplicate completions
