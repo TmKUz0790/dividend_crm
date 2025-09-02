@@ -90,7 +90,7 @@ class Application(models.Model):
 		if not self.varonka:
 			return None
 
-		completed_tasks = self.task_completions.values_list('task_id', flat=True)
+		completed_tasks = self.task_completions.values_list('varonka_task_id', flat=True)
 		next_task = self.varonka.tasks.exclude(id__in=completed_tasks).order_by('order').first()
 		return next_task
 
