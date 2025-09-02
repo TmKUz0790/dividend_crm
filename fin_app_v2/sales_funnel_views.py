@@ -107,8 +107,9 @@ class ApplicationViewSet(viewsets.ModelViewSet):
                             status=status.HTTP_404_NOT_FOUND)
 
         # Check if already completed
+
         if ApplicationTaskCompletion.objects.filter(
-                application=application, varonka_task=task
+            application=application, varonka=application.varonka
         ).exists():
             return Response({'error': 'Task already completed'},
                             status=status.HTTP_400_BAD_REQUEST)
@@ -116,7 +117,7 @@ class ApplicationViewSet(viewsets.ModelViewSet):
         # Create completion record
         completion_data = {
             'application': application.id,
-            'varonka_task': task.id,
+            'varonka': application.varonka.id,
             'notes': request.data.get('notes', ''),
             'completed_by': request.data.get('completed_by', '')
         }
@@ -126,7 +127,7 @@ class ApplicationViewSet(viewsets.ModelViewSet):
             serializer.save()
 
             # Update application status if all required tasks are done
-            if application.is_completed():
+            if hasattr(application, 'is_completed') and application.is_completed():
                 application.status = 'completed'
                 application.save()
 
@@ -147,7 +148,7 @@ class ApplicationViewSet(viewsets.ModelViewSet):
         try:
             completion = ApplicationTaskCompletion.objects.get(
                 application=application,
-                varonka_task_id=task_id
+                varonka=application.varonka
             )
             completion.delete()
 
@@ -168,12 +169,12 @@ class ApplicationViewSet(viewsets.ModelViewSet):
         """Get all varonka tasks for this application with completion status"""
         application = self.get_object()
         varonka_tasks = application.get_varonka_tasks()
-        completed_task_ids = application.task_completions.values_list('varonka_task_id', flat=True)
+        completed_varonka_ids = application.task_completions.values_list('varonka_id', flat=True)
 
         tasks_data = []
         for task in varonka_tasks:
             task_data = VaronkaTaskSerializer(task).data
-            task_data['is_completed'] = task.id in completed_task_ids
+            task_data['is_completed'] = application.varonka.id in completed_varonka_ids
             tasks_data.append(task_data)
 
         return Response(tasks_data)

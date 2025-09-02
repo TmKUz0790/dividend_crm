@@ -15,21 +15,22 @@ class VaronkaBoardSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'tasks']
 
     def get_tasks(self, obj):
-        # Группируем задачи по статусу через фильтр по varonka
-        from .model_sales_funnel import ApplicationTaskCompletion
-        completions = ApplicationTaskCompletion.objects.filter(task__varonka=obj)
+        # Получаем все задачи этапа
+        from .model_sales_funnel import VaronkaTask, ApplicationTaskCompletion, Application
+        tasks = VaronkaTask.objects.filter(varonka=obj)
         grouped = {'new': [], 'in_progress': [], 'done': []}
-        for task in completions:
-            grouped.setdefault(task.status, []).append({
+        for task in tasks:
+            # Находим статус задачи по ApplicationTaskCompletion (если есть)
+            completion = ApplicationTaskCompletion.objects.filter(varonka=obj, application__current_task=task).first()
+            status = completion.status if completion else 'new'
+            # Находим клиента, к которому прикреплена задача
+            application = Application.objects.filter(current_task=task, varonka=obj).first()
+            grouped.setdefault(status, []).append({
                 'id': task.id,
-                'application': task.application.id,
-                'application_name': task.application.name,
-                'task': task.task.id,
-                'task_name': task.task.name,
-                'status': task.status,
-                'completed_at': task.completed_at,
-                'notes': task.notes,
-                'completed_by': task.completed_by
+                'name': task.name,
+                'status': status,
+                'application_id': application.id if application else None,
+                'application_name': application.name if application else None
             })
         return grouped
 # serializers.py - CREATE THIS AS A NEW FILE
@@ -260,22 +261,24 @@ class VaronkaListSerializer(serializers.ModelSerializer):
 
 
 class ApplicationTaskCompletionSerializer(serializers.ModelSerializer):
-    task_name = serializers.CharField(source='task.name', read_only=True)
+    varonka = serializers.PrimaryKeyRelatedField(queryset=Varonka.objects.all())
+    varonka_name = serializers.CharField(source='varonka.name', read_only=True)
     status = serializers.CharField()
+    application = serializers.PrimaryKeyRelatedField(queryset=Application.objects.all())
 
     class Meta:
         model = ApplicationTaskCompletion
-        fields = ['id', 'task', 'task_name', 'completed_at', 'notes', 'completed_by', 'status']
+        fields = ['id', 'application', 'varonka', 'varonka_name', 'completed_at', 'notes', 'completed_by', 'status']
 
 
 class ApplicationSerializer(serializers.ModelSerializer):
     status = serializers.CharField()
     varonka_name = serializers.CharField(source='varonka.name', read_only=True)
     task_completions = ApplicationTaskCompletionSerializer(many=True, read_only=True)
-    tasks = ApplicationTaskCompletionSerializer(many=True, read_only=True, source='task_completions')
     current_task = serializers.SerializerMethodField()
     completed_tasks_count = serializers.SerializerMethodField()
     total_tasks_count = serializers.SerializerMethodField()
+    tasks = serializers.SerializerMethodField()
 
     class Meta:
         model = Application
@@ -283,6 +286,18 @@ class ApplicationSerializer(serializers.ModelSerializer):
             'id', 'name', 'contact', 'status', 'tasks', 'varonka', 'varonka_name',
             'created_at', 'updated_at', 'task_completions', 'current_task',
             'completed_tasks_count', 'total_tasks_count'
+        ]
+
+    def get_tasks(self, obj):
+        return [
+            {
+                'task_id': t.task.id,
+                'task_name': t.task.name,
+                'client_id': obj.id,
+                'client_name': obj.name,
+                'status': t.status
+            }
+            for t in obj.task_completions.all()
         ]
 
     def get_current_task(self, obj):

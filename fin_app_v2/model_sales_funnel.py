@@ -1,6 +1,43 @@
+from django.db import models
 
-# from django.db import models
+class VaronkaTemplate(models.Model):
+	name = models.CharField(max_length=100)
+	description = models.TextField(blank=True)
 
+	def __str__(self):
+		return f"Template: {self.name}"
+
+	def create_varonka(self, varonka_name):
+		"""Create a new varonka from this template"""
+		varonka = Varonka.objects.create(
+			name=varonka_name,
+			description=self.description
+		)
+
+		# Copy tasks from template
+		for template_task in self.template_tasks.all():
+			VaronkaTask.objects.create(
+				varonka=varonka,
+				name=template_task.name,
+				order=template_task.order,
+				description=template_task.description,
+				is_required=template_task.is_required
+			)
+
+		return varonka
+
+class VaronkaTemplateTask(models.Model):
+	template = models.ForeignKey(VaronkaTemplate, related_name='template_tasks', on_delete=models.CASCADE)
+	name = models.CharField(max_length=100)
+	order = models.PositiveIntegerField(default=0)
+	description = models.TextField(blank=True)
+	is_required = models.BooleanField(default=True)
+
+	class Meta:
+		ordering = ['order']
+
+	def __str__(self):
+		return f"{self.template.name} - {self.name}"
 
 
 from django.db import models
@@ -71,7 +108,7 @@ class Application(models.Model):
 
 class ApplicationTaskCompletion(models.Model):
 	application = models.ForeignKey(Application, related_name='task_completions', on_delete=models.CASCADE)
-	task = models.ForeignKey(VaronkaTask, on_delete=models.CASCADE)
+	varonka = models.ForeignKey(Varonka, on_delete=models.CASCADE)
 	completed_at = models.DateTimeField(auto_now_add=True)
 	notes = models.TextField(blank=True, help_text="Notes about task completion")
 	completed_by = models.CharField(max_length=100, blank=True)  # Could be ForeignKey to User model
@@ -83,46 +120,8 @@ class ApplicationTaskCompletion(models.Model):
 	status = models.CharField(max_length=32, choices=STATUS_CHOICES, default="new", verbose_name='Статус задачи')
 
 	class Meta:
-		unique_together = ['application', 'task']  # Prevent duplicate completions
+		unique_together = ['application', 'varonka']  # Prevent duplicate completions
 
 	def __str__(self):
-		return f"{self.application.name} - {self.task.name} (Completed)"
+		return f"{self.application.name} - {self.varonka.name} (Completed)"
 
-class VaronkaTemplate(models.Model):
-	name = models.CharField(max_length=100)
-	description = models.TextField(blank=True)
-
-	def __str__(self):
-		return f"Template: {self.name}"
-
-	def create_varonka(self, varonka_name):
-		"""Create a new varonka from this template"""
-		varonka = Varonka.objects.create(
-			name=varonka_name,
-			description=self.description
-		)
-
-		# Copy tasks from template
-		for template_task in self.template_tasks.all():
-			VaronkaTask.objects.create(
-				varonka=varonka,
-				name=template_task.name,
-				order=template_task.order,
-				description=template_task.description,
-				is_required=template_task.is_required
-			)
-
-		return varonka
-
-class VaronkaTemplateTask(models.Model):
-	template = models.ForeignKey(VaronkaTemplate, related_name='template_tasks', on_delete=models.CASCADE)
-	name = models.CharField(max_length=100)
-	order = models.PositiveIntegerField(default=0)
-	description = models.TextField(blank=True)
-	is_required = models.BooleanField(default=True)
-
-	class Meta:
-		ordering = ['order']
-
-	def __str__(self):
-		return f"{self.template.name} - {self.name}"
