@@ -15,8 +15,9 @@ class VaronkaBoardSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'tasks']
 
     def get_tasks(self, obj):
-        # Группируем задачи по статусу
-        completions = obj.applicationtaskcompletion_set.all()
+        # Группируем задачи по статусу через фильтр по varonka
+        from .model_sales_funnel import ApplicationTaskCompletion
+        completions = ApplicationTaskCompletion.objects.filter(task__varonka=obj)
         grouped = {'new': [], 'in_progress': [], 'done': []}
         for task in completions:
             grouped.setdefault(task.status, []).append({
