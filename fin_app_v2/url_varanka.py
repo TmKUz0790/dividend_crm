@@ -2,13 +2,12 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .sales_funnel_views import (
-    VaronkaBoardView, VaronkaViewSet, VaronkaStageViewSet,
+    VaronkaBoardView, VaronkaViewSet, 
     VaronkaTaskViewSet, ApplicationViewSet, ApplicationTaskCompletionViewSet
 )
 
 router = DefaultRouter()
 router.register(r'varonkas', VaronkaViewSet)
-router.register(r'varonka-stages', VaronkaStageViewSet)
 router.register(r'varonka-tasks', VaronkaTaskViewSet)
 router.register(r'applications', ApplicationViewSet)
 router.register(r'task-completions', ApplicationTaskCompletionViewSet)
