@@ -8,18 +8,28 @@ class ApplicationCardSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'contact', 'status']
 
 class VaronkaBoardSerializer(serializers.ModelSerializer):
-    applications = serializers.SerializerMethodField()
+    tasks = serializers.SerializerMethodField()
 
     class Meta:
         model = Varonka
-        fields = ['id', 'name', 'applications']
+        fields = ['id', 'name', 'tasks']
 
-    def get_applications(self, obj):
-        # Группируем заявки по статусу
-        apps = obj.application_set.all()
+    def get_tasks(self, obj):
+        # Группируем задачи по статусу
+        completions = obj.applicationtaskcompletion_set.all()
         grouped = {'new': [], 'in_progress': [], 'done': []}
-        for app in apps:
-            grouped.setdefault(app.status, []).append(ApplicationCardSerializer(app).data)
+        for task in completions:
+            grouped.setdefault(task.status, []).append({
+                'id': task.id,
+                'application': task.application.id,
+                'application_name': task.application.name,
+                'task': task.task.id,
+                'task_name': task.task.name,
+                'status': task.status,
+                'completed_at': task.completed_at,
+                'notes': task.notes,
+                'completed_by': task.completed_by
+            })
         return grouped
 # serializers.py - CREATE THIS AS A NEW FILE
 # This file doesn't exist in your project, so it's 100% safe to add
