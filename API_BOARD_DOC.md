@@ -1,3 +1,68 @@
+# Отображение всех задач
+
+**GET /api/sales-funnel-tasks/**
+
+Возвращает список всех задач с их полями (client, varonka, title, status и др.).
+
+Пример запроса:
+```
+GET http://<ваш_домен>/api/sales-funnel-tasks/
+```
+
+Пример ответа:
+```
+[
+  {
+    "id": 1,
+    "client": 2,
+    "varonka": 1,
+    "title": "Позвонить клиенту",
+    "status": "new"
+    // ... другие поля ...
+  },
+  ...
+]
+```
+
+---
+
+# Создание новой задачи
+
+**POST /api/sales-funnel-tasks/**
+
+Создаёт новую задачу. Укажите id клиента (Application), id этапа (Varonka), название и статус.
+
+Пример запроса:
+```
+POST http://<ваш_домен>/api/sales-funnel-tasks/
+Content-Type: application/json
+
+{
+  "client": 2,
+  "varonka": 1,
+  "title": "Позвонить клиенту",
+  "status": "new"
+}
+```
+
+Пример ответа:
+```
+{
+  "id": 5,
+  "client": 2,
+  "varonka": 1,
+  "title": "Позвонить клиенту",
+  "status": "new"
+  // ... другие поля ...
+}
+```
+
+---
+
+**Примечание:**
+- client — id существующего клиента (Application)
+- varonka — id существующего этапа (Varonka)
+- status — "new", "in_progress" или "done"
 # API Kanban Board Documentation
 
 ## Эндпоинт: Kanban Board
