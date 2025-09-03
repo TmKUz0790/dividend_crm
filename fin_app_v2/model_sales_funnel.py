@@ -1,9 +1,12 @@
 
-# from django.db import models
-
-
 
 from django.db import models
+
+STAGE_CHOICES = [
+	("new", "Новая"),
+	("in_progress", "В работе"),
+	("done", "Завершена"),
+]
 
 class Varonka(models.Model):
 	name = models.CharField(max_length=100)
@@ -28,11 +31,6 @@ class VaronkaTask(models.Model):
 		return f"{self.varonka.name} - {self.name}"
 
 class Application(models.Model):
-	STAGE_CHOICES = [
-		("new", "Новая"),
-		("in_progress", "В работе"),
-		("done", "Завершена"),
-	]
 
 	name = models.CharField(max_length=100)
 	contact = models.CharField(max_length=100, blank=True)
@@ -120,3 +118,15 @@ class VaronkaTemplateTask(models.Model):
 
 	def __str__(self):
 		return f"{self.template.name} - {self.name}"
+
+
+class SalesFunnelClient(models.Model):
+    name = models.CharField(max_length=100)
+    # ... другие поля клиента ...
+
+class SalesFunnelTask(models.Model):
+	client = models.ForeignKey(Application, on_delete=models.CASCADE, related_name='sales_funnel_tasks')
+	varonka = models.ForeignKey(Varonka, on_delete=models.CASCADE, related_name='sales_tasks')
+	title = models.CharField(max_length=100)
+	status = models.CharField(max_length=32, choices=STAGE_CHOICES, default='new')
+	# ... другие поля задачи ...

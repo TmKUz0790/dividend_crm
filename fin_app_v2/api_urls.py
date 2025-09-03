@@ -1,3 +1,4 @@
+from .sales_funnel_views import VaronkaViewSet, VaronkaTaskViewSet, ApplicationViewSet, SalesFunnelTaskViewSet
 from .sales_funnel_views import VaronkaBoardView
 # from django.urls import path
 # from . import api_views
@@ -70,6 +71,7 @@ router = DefaultRouter()
 router.register(r'varonkas', sales_funnel_views.VaronkaViewSet, basename='varonka')
 router.register(r'varonka-tasks', sales_funnel_views.VaronkaTaskViewSet, basename='varonkatask')
 router.register(r'applications', sales_funnel_views.ApplicationViewSet, basename='application')
+router.register(r'sales-funnel-tasks', SalesFunnelTaskViewSet, basename='salesfunneltask')
 
 
 from django.conf import settings

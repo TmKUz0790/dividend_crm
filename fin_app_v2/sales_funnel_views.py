@@ -1,3 +1,10 @@
+from rest_framework import viewsets
+from .model_sales_funnel import SalesFunnelTask
+from .serializers import SalesFunnelTaskSerializer
+
+class SalesFunnelTaskViewSet(viewsets.ModelViewSet):
+    queryset = SalesFunnelTask.objects.all()
+    serializer_class = SalesFunnelTaskSerializer
 # --- Kanban Board ViewSet ---
 from rest_framework.views import APIView
 from .serializers import VaronkaBoardSerializer

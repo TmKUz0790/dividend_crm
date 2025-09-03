@@ -1,3 +1,27 @@
+from .model_sales_funnel import SalesFunnelTask, Varonka, VaronkaTask, Application
+from rest_framework import serializers
+
+
+class ApplicationShortSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Application
+        fields = ['id', 'name', 'contact', 'status']
+
+class VaronkaTaskShortSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VaronkaTask
+        fields = ['id', 'name', 'order']
+
+class SalesFunnelTaskSerializer(serializers.ModelSerializer):
+    client = serializers.PrimaryKeyRelatedField(queryset=Application.objects.all())
+    varonka = serializers.PrimaryKeyRelatedField(queryset=Varonka.objects.all())
+    client_details = ApplicationShortSerializer(source='client', read_only=True)
+    varonka_details = VaronkaTaskShortSerializer(source='varonka', read_only=True)
+
+    class Meta:
+        model = SalesFunnelTask
+        fields = '__all__'
+        extra_fields = ['client_details', 'varonka_details']
 from rest_framework import serializers
 from .model_sales_funnel import Application
 from .model_sales_funnel import Varonka
@@ -8,18 +32,19 @@ class ApplicationCardSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'contact', 'status']
 
 class VaronkaBoardSerializer(serializers.ModelSerializer):
-    applications = serializers.SerializerMethodField()
+    tasks = serializers.SerializerMethodField()
 
     class Meta:
         model = Varonka
-        fields = ['id', 'name', 'applications']
+        fields = ['id', 'name', 'tasks']
 
-    def get_applications(self, obj):
-        # Группируем заявки по статусу
-        apps = obj.application_set.all()
+    def get_tasks(self, obj):
+        # Группируем задачи по статусу
+        funnel_tasks = obj.sales_tasks.all()
         grouped = {'new': [], 'in_progress': [], 'done': []}
-        for app in apps:
-            grouped.setdefault(app.status, []).append(ApplicationCardSerializer(app).data)
+        from .serializers import SalesFunnelTaskSerializer
+        for task in funnel_tasks:
+            grouped.setdefault(task.status, []).append(SalesFunnelTaskSerializer(task).data)
         return grouped
 # serializers.py - CREATE THIS AS A NEW FILE
 # This file doesn't exist in your project, so it's 100% safe to add
